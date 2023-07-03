@@ -12,7 +12,7 @@ function component() {
         var Vote = 5;
         eng.init();
         var id = 0;
-        
+        mng.loadCarousel();
         mng.loadJson()
           .then(function (LJ) {
             $("#showTitle").html("Titolo: " + LJ.Title);

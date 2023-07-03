@@ -28,8 +28,8 @@ body {
     border-bottom: 27px solid rgb(77, 6, 255);
 
     position: relative;
-    left: 495px;
-    top: 400px;
+    left: 750px;
+    top: 180px;
   }
   
   .arrow-down {
@@ -40,15 +40,15 @@ body {
     
     border-top: 27px solid rgb(77, 6, 255);
     position: relative;
-    left: 495px;
-    top: 100px;
+    left: 750px;
+    top: -75px;
     
   }
 
 #ok{
     position: relative;
-    left: 550px;
-    top: 85px;
+    left: 800px;
+    top: -95px;
     text-align: center;
     background-color:rgb(77, 6, 255) ;
     color: white;
@@ -57,8 +57,8 @@ body {
 }
 #vote{
     position: relative;
-    left: 502.5px;
-    top: 15px;
+    left: 760px;
+    top: -160px;
     width: 1.3em;
     height: 1.3em;
     text-align: center;
@@ -67,8 +67,8 @@ body {
 }
 #avgVote{
     position: relative;
-    left: 610px;
-    top: -45px;
+    left: 850px;
+    top: -225px;
     width: 5em;
     height: 5em;
     text-align: center;
@@ -80,3 +80,32 @@ body {
 #info{
     background-color: rgba(0, 0, 0, 0.071);
 }
+
+.slider-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .slider {
+    display: none;
+  }
+  
+  .slider.active {
+    display: block;
+  }
+  
+  #prev-btn,
+  #next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+  }
+  
+  #prev-btn {
+    left: 10px;
+  }
+  
+  #next-btn {
+    right: 10px;
+  }
