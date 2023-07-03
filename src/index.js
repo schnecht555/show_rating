@@ -3,7 +3,11 @@ import "./styles.css"
 import { engine } from './engine';
 import { jsonmanager } from './jsonmanager';
 function component() {
-        let mng = new jsonmanager();
+  const appMan = document.getElementById("appMan");
+  let app = appMan.getOwnerApplication(document);
+  app.show();
+ 
+  let mng = new jsonmanager();
         var eng = new engine();
         var Vote = 5;
         eng.init();
@@ -21,10 +25,6 @@ function component() {
           });
       
         $("#okdiv").click(function () {
-          $("#okdiv").hide();
-          $(".arrow-up").hide();
-          $(".arrow-down").hide();
-          $("#vote").hide();
           $("#avgVote").show();
           $("#avgVote").html(eng.getAverage(id, Vote).toFixed(2));
         });

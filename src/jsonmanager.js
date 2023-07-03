@@ -2,7 +2,13 @@ export class jsonmanager {
   loadJson() {
     let promise = new Promise(function (resolve, reject) {
       const urlParams = new URLSearchParams(window.location.search);
-      const id = urlParams.get("ID");
+      let id = urlParams.get("ID");
+      if (!id) {
+        id = "111";
+        urlParams.set("ID", id);
+        const newUrl = window.location.pathname + "?" + urlParams.toString();
+        window.history.replaceState(null, null, newUrl);
+      }
 
       $.ajax({
         url: "https://enabler.finconsgroup.com/php/rating-app/rating.json",
@@ -21,10 +27,9 @@ export class jsonmanager {
         },
       });
     });
+
     return promise;
   }
-
-
   getArray() {
     var jsonString = localStorage.getItem("rating");
     var array = JSON.parse(jsonString);
@@ -37,5 +42,3 @@ export class jsonmanager {
     localStorage.setItem("rating", jsonString);
   }
 }
-
-
