@@ -3,14 +3,14 @@ body {
     width: 1024px;
     background-image: url();
     background-size:  1024px 720px;
-    background-repeat: no-repeat;
+     
    
 }
 #tvScreen {
     height: 50%;
     width: 50%;
-    background-color: rgb(214, 214, 14);
     float: left;
+    margin-top: -36px;
     }
 
 #info{
