@@ -1,111 +1,112 @@
 body {
-    height: 720px;
-    width: 1024px;
-    background-image: url();
-    background-size:  1024px 720px;
-     
-   
+  height: 720px;
+  width: 1024px;
+  background-image: url();
+  background-size: 1024px 720px;
 }
 #tvScreen {
-    height: 50%;
-    width: 50%;
-    float: left;
-    margin-top: -36px;
-    }
+  height: 50%;
+  width: 50%;
+  float: left;
+  margin-top: -36px;
+}
 
-#info{
-    float:right;
-    height: 50%;
-    width: 49%;
-    
-   }
+#info {
+  float: right;
+  height: 50%;
+  width: 49%;
+}
 
 .arrow-up {
-    width: 0; 
-    height: 0; 
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 27px solid rgb(77, 6, 255);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 27px solid rgb(77, 6, 255);
 
-    position: relative;
-    left: 750px;
-    top: 180px;
-  }
-  
-  .arrow-down {
-    width: 0; 
-    height: 0; 
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    
-    border-top: 27px solid rgb(77, 6, 255);
-    position: relative;
-    left: 750px;
-    top: -75px;
-    
-  }
+  position: relative;
+  left: 750px;
+  top: 180px;
+}
 
-#ok{
-    position: relative;
-    left: 800px;
-    top: -95px;
-    text-align: center;
-    background-color:rgb(77, 6, 255) ;
-    color: white;
-    border: none;
-    
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+
+  border-top: 27px solid rgb(77, 6, 255);
+  position: relative;
+  left: 750px;
+  top: -75px;
 }
-#vote{
-    position: relative;
-    left: 760px;
-    top: -160px;
-    width: 1.3em;
-    height: 1.3em;
-    text-align: center;
-    background-color:rgb(77, 6, 255) ;
-    color: white;
+
+#ok {
+  position: relative;
+  left: 800px;
+  top: -95px;
+  text-align: center;
+  background-color: rgb(77, 6, 255);
+  color: white;
+  border: none;
 }
-#avgVote{
-    position: relative;
-    left: 850px;
-    top: -225px;
-    width: 5em;
-    height: 5em;
-    text-align: center;
-    background-color:rgb(77, 6, 255) ;
-    color: white;
-    display: none;
-    border: none;
+#vote {
+  position: relative;
+  left: 760px;
+  top: -160px;
+  width: 1.3em;
+  height: 1.3em;
+  text-align: center;
+  background-color: rgb(77, 6, 255);
+  color: white;
 }
-#info{
-    background-color: rgba(0, 0, 0, 0.071);
+#avgVote {
+  position: relative;
+  left: 850px;
+  top: -225px;
+  width: 5em;
+  height: 5em;
+  text-align: center;
+  background-color: rgb(77, 6, 255);
+  color: white;
+  display: none;
+  border: none;
+}
+#info {
+  background-color: rgba(0, 0, 0, 0.071);
 }
 
 .slider-container {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .slider {
-    display: none;
-  }
-  
-  .slider.active {
-    display: block;
-  }
-  
-  #prev-btn,
-  #next-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 10px;
-  }
-  
-  #prev-btn {
-    left: 10px;
-  }
-  
-  #next-btn {
-    right: 10px;
-  }
+  position: relative;
+  overflow: hidden;
+}
+
+.slider {
+  display: none;
+}
+
+.slider.active {
+  display: block;
+}
+
+#prev-btn,
+#next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+}
+
+#prev-btn {
+  left: 10px;
+}
+
+#next-btn {
+  right: 10px;
+}
+img {
+  float: right;
+  margin-right: 52px;
+
+}
+

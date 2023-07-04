@@ -76,12 +76,12 @@ export class jsonmanager {
           
           const img = document.createElement('img');
           img.src = imgUrl;
-          
-          const ptitle = document.createElement('p');
-          ptitle.innerHTML = title;
+          img.title = title
+          // const ptitle = document.createElement('p');
+          // ptitle.innerHTML = title;
           
           slide.appendChild(img);
-          slide.appendChild(ptitle);
+          // slide.appendChild(ptitle);
           
           imageContainer.appendChild(slide);
         }
