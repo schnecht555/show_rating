@@ -1,31 +1,41 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const path = require('path');
-const webpack = require('webpack');
+const path = require("path");
+const webpack = require("webpack");
 module.exports = {
   mode: "development",
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
     filename: "main.[contenthash].js",
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, "dist"),
   },
   plugins: [
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
+      $: "jquery",
+      jQuery: "jquery",
     }),
     new HtmlWebpackPlugin({
-      template: "src/template.html"
+      template: "src/template.html",
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[contenthash].css"
-    })
+      filename: "[name].[contenthash].css",
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.js$/, // Apply the loader to JavaScript files
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader', // Use Babel loader to transpile JavaScript code
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
     ],
   },

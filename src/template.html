@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>p1</title>
-</head>
+  </head>
 
-<body style="background-image:url();">
+  <body style="background-image: url()">
+    <object
+      id="tvScreen"
+      type="video/broadcast"
+      class="fullscreen reducedscreen"
+    ></object>
 
-
-    
-        <object id="tvScreen" type="video/broadcast" class="fullscreen reducedscreen"></object>
-    
     <div id="info">
-        <p id="showTitle"></p>
-        <p id="showDesc"></p>
-        <p id="bkg"></p>
+      <p id="showTitle"></p>
+      <p id="showDesc"></p>
+      <p id="bkg"></p>
     </div>
     <div id="voteBox">
-        <div class="arrow-up"></div>
-        <div id="okdiv"><button id="ok">OK</button></div>
-        <div class="arrow-down"></div>
-        <h3 id="vote"></h3>
-        <div><button id="avgVote"></button></div>
+      <div class="arrow-up"></div>
+      <div id="okdiv"><button id="ok">OK</button></div>
+      <div class="arrow-down"></div>
+      <h3 id="vote"></h3>
+      <section><button id="avgVote"></button></section>
     </div>
     <object type="application/oipfApplicationManager" id="appMan"></object>
-
-
+<section id="selected"></section>
     <div class="slider-container">
-        <div id="image-container"></div>
-        <button id="next-btn">></button>
-        <button id="prev-btn"><</button>
-      </div>
+      <div id="image-container"></div>
+      <button id="next-btn">></button>
+      <button id="prev-btn"><</button>
+    </div>
+    <div>
+      <video class="vdoPlr" id="vdoPlr" controls></video>
+    </div>
   </body>
 </html>

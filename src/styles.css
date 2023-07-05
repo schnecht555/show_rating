@@ -16,6 +16,11 @@ body {
   height: 50%;
   width: 49%;
 }
+section{
+  width: 200px;
+  width: 296px;
+  background-color: blue;
+}
 
 .arrow-up {
   width: 0;
@@ -108,5 +113,10 @@ img {
   float: right;
   margin-right: 52px;
 
+}
+#vdoPlr{
+  height: 720px;
+  width: 1024px;
+  display: none;
 }
 

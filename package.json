@@ -23,6 +23,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "dashjs": "^4.7.1",
     "git": "^0.1.5",
     "jquery": "^3.7.0",
     "lodash": "^4.17.21"
