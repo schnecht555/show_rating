@@ -16,7 +16,7 @@ body {
   height: 50%;
   width: 49%;
 }
-section{
+section {
   width: 200px;
   width: 296px;
   background-color: blue;
@@ -112,14 +112,35 @@ section{
 img {
   float: right;
   margin-right: 52px;
-
 }
-#vdoPlr{
+#vdoPlr {
   height: 720px;
   width: 1024px;
   display: none;
 }
-#firstPic{
-    border-width: 5px;
-  border-color: blue; 
+#firstPic {
+  border-width: 5px;
+  border-color: blue;
+}
+.vdoPlr {
+  position: relative;
+  top: -80px;
+}
+video::-webkit-media-controls-timeline,
+video::-webkit-media-controls-seek-forward-button,
+video::-webkit-media-controls-seek-back-button,
+video::-webkit-media-controls-fullscreen-button,
+video::-webkit-media-controls-fullscreen-button,
+video::-webkit-media-controls-volume-slider-container,
+video::-webkit-media-controls-volume-slider,
+video::-webkit-media-controls-mute-button,
+video::-webkit-media-controls-toggle-closed-captions-button,
+video::-webkit-media-controls-play-button {
+  display: none;
+}
+#videoControlls {
+  display: none;
+  position: relative;
+  top: -200px;
+  left: 450px;
 }

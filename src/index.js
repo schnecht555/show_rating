@@ -18,6 +18,7 @@ function component() {
   var id = 0;
   var arrayVideo = null;
   let select = 0;
+  const video = document.getElementById("vdoPlr");
 
   mng
     .loadCarousel()
@@ -47,14 +48,13 @@ function component() {
       }
 
       for (let i = 0; i < arrayVideo.length; i++) {
-       
         const slide = document.createElement("div");
         slide.className = "slider";
 
         const img = document.createElement("img");
         img.src = arrayVideo[i].imgUrl;
         img.title = arrayVideo[i].title;
-                slide.appendChild(img);
+        slide.appendChild(img);
 
         imageContainer.appendChild(slide);
       }
@@ -117,21 +117,58 @@ function component() {
 
   $("#okdiv").click(function () {
     $("#avgVote").show();
-    $("#tvScreen").hide();
-    $("#info").hide();
-    $("#appMan").hide();
-    $("#voteBox").hide();
-    $(".vdoPlr").show();
-    $(".slider-container").hide();
+
     $("#avgVote").html(eng.getAverage(id, Vote).toFixed(2));
-    var url = arrayVideo[selected].videoUrl;
-    var player = MediaPlayer().create();
-    player.initialize(document.getElementById("vdoPlr"), url, true);
-    player.play();
+  });
+  $(document).keydown(function (event) {
+    if (event.keyCode === 13) {
+      $("#info").hide();
+      $("#appMan").hide();
+      $("#voteBox").hide();
+      $("#tvScreen").hide();
+      $(".vdoPlr").show();
+      $(".slider-container").hide();
+      $("#videoControlls").show();
+      var url = arrayVideo[selected].videoUrl;
+      var player = MediaPlayer().create();
+      player.initialize(document.getElementById("vdoPlr"), url, true);
+      player.play();
+      $("body").css({ "background-image": "url(" + ")" });
+      $("#min10").show();
+      $("#playpauseBtn").show();
+      $("#plus10").show();
+    } else if (event.keyCode === 32) {
+      if (video.paused) {
+        video.play();
+        $("#playpauseBtn").html("⏸️");
+      } else {
+        video.pause();
+        $("#playpauseBtn").html("▶️");
+      }
+    } else if (event.keyCode === 39) {
+      video.currentTime = video.currentTime + 10;
+    } else if (event.keyCode === 37) {
+      video.currentTime = video.currentTime - 10;
+    }
+  });
+
+  $("#playpauseBtn").click(function () {
+    if (video.paused) {
+      video.play();
+      $("#playpauseBtn").html("⏸️");
+    } else {
+      video.pause();
+      $("#playpauseBtn").html("▶️");
+    }
+  });
+  $("#min10").click(function () {
+    video.currentTime = video.currentTime - 10;
+  });
+  $("#plus10").click(function () {
+    video.currentTime = video.currentTime + 10;
   });
 
   /* higher/lower Vote */
-
   $("#vote").html(Vote);
   $(".arrow-up").click(function () {
     if (Vote < 10) {
