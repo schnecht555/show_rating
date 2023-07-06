@@ -117,7 +117,6 @@ function component() {
 
   $("#okdiv").click(function () {
     $("#avgVote").show();
-
     $("#avgVote").html(eng.getAverage(id, Vote).toFixed(2));
   });
   $(document).keydown(function (event) {

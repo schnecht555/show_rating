@@ -118,10 +118,7 @@ img {
   width: 1024px;
   display: none;
 }
-#firstPic {
-  border-width: 5px;
-  border-color: blue;
-}
+
 .vdoPlr {
   position: relative;
   top: -80px;
@@ -143,4 +140,8 @@ video::-webkit-media-controls-play-button {
   position: relative;
   top: -200px;
   left: 450px;
+}
+section{
+  height: 0px;
+  width: 0px;
 }
