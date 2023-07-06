@@ -119,4 +119,7 @@ img {
   width: 1024px;
   display: none;
 }
-
+#firstPic{
+    border-width: 5px;
+  border-color: blue; 
+}

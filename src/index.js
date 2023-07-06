@@ -10,7 +10,7 @@ function component() {
   const appMan = document.getElementById("appMan");
   let app = appMan.getOwnerApplication(document);
   app.show();
-
+  let selected = 0;
   let mng = new jsonmanager();
   var eng = new engine();
   var Vote = 5;
@@ -19,13 +19,89 @@ function component() {
   var arrayVideo = null;
   let select = 0;
 
-  mng.loadCarousel().then(function (arrayVideoCarousel) {
+  mng
+    .loadCarousel()
+    .then(function (arrayVideoCarousel) {
       arrayVideo = arrayVideoCarousel;
-     
       console.log(arrayVideo);
-      }).catch(function (error) {
-    console.log(error);
-  });
+
+      const imageContainer = document.getElementById("image-container");
+      const prevBtn = document.getElementById("prev-btn");
+      const nextBtn = document.getElementById("next-btn");
+
+      const slidesToShow = 4;
+      let currentIndex = 0;
+
+      function showSlides() {
+        const slides = document.getElementsByClassName("slider");
+        const totalSlides = slides.length;
+
+        for (let i = 0; i < totalSlides; i++) {
+          slides[i].style.display = "none";
+        }
+
+        for (let i = 0; i < slidesToShow; i++) {
+          const index = (currentIndex + i) % totalSlides;
+          slides[index].style.display = "block";
+        }
+      }
+
+      for (let i = 0; i < arrayVideo.length; i++) {
+       
+        const slide = document.createElement("div");
+        slide.className = "slider";
+
+        const img = document.createElement("img");
+        img.src = arrayVideo[i].imgUrl;
+        img.title = arrayVideo[i].title;
+                slide.appendChild(img);
+
+        imageContainer.appendChild(slide);
+      }
+
+      const slides = document.getElementsByClassName("slider");
+      if (slides.length > 0) {
+        slides[0].style.display = "block";
+      }
+
+      prevBtn.addEventListener("click", function () {
+        currentIndex--;
+        selected--;
+        if (currentIndex < 0) {
+          currentIndex = slides.length - 1;
+          selected = slides.length - 1;
+        }
+        console.log(selected);
+        showSlides();
+      });
+
+      nextBtn.addEventListener("click", function () {
+        currentIndex++;
+        selected++;
+        if (currentIndex >= slides.length) {
+          currentIndex = 0;
+          selected = 0;
+        }
+        console.log(selected);
+
+        showSlides();
+      });
+
+      showSlides();
+
+      setInterval(function () {
+        currentIndex++;
+
+        if (currentIndex >= slides.length) {
+          currentIndex = 0;
+        }
+
+        showSlides();
+      }, 1000000);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
   mng
     .loadJson()
@@ -48,7 +124,7 @@ function component() {
     $(".vdoPlr").show();
     $(".slider-container").hide();
     $("#avgVote").html(eng.getAverage(id, Vote).toFixed(2));
-    var url = arrayVideo[select].videoUrl;
+    var url = arrayVideo[selected].videoUrl;
     var player = MediaPlayer().create();
     player.initialize(document.getElementById("vdoPlr"), url, true);
     player.play();
@@ -72,7 +148,6 @@ function component() {
   $(".suiiii").click(function () {
     console.log("hallo");
   });
-  
 }
 
 document.body.appendChild(component());
