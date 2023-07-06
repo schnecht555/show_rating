@@ -141,7 +141,15 @@ video::-webkit-media-controls-play-button {
   top: -200px;
   left: 450px;
 }
-section{
+section {
   height: 0px;
   width: 0px;
+}
+#slider {
+  border: blue;
+  border-width: 5px;
+  background-image: url(https://media.tarkett-image.com/large/TH_26513017_001.jpg);
+  background-size: 210px 288px;
+  background-repeat: no-repeat;
+  background-position-x: 94.75%;
 }
