@@ -6,7 +6,8 @@
     <title>p1</title>
   </head>
 
-  <body style="background-image: url()">
+  <body>
+    <div id="divBody" style="background-image: url()">
     <object
       id="tvScreen"
       type="video/broadcast"
@@ -17,7 +18,6 @@
       <button id="prev-btn-news">^</button>
       <div id="news-container"></div>
       <button id="next-btn-news">v</button>
-
       <!-- <p id="showTitle"></p>
       <p id="showDesc"></p>
       <p id="bkg"></p>
@@ -29,19 +29,29 @@
       <h3 id="vote"></h3>
       <section><button id="avgVote"></button></section> -->
     </div>
-    <object type="application/oipfApplicationManager" id="appMan"></object>
+
+    <div id="newsInfo"> Press "0" to close
+      <h3 id="newsTitle"></h3>
+      <p id="newsDesc"></p>
+    </div>
+
+    
     <div class="slider-container" id="slider">
       <div id="image-container"></div>
       <button id="next-btn">></button>
       <button id="prev-btn"><</button>
     </div>
-    <div>
-      <video class="vdoPlr" id="vdoPlr" controls></video>
-    </div>
-    <div id="videoControlls">
-      <button id="min10">⏪</button>
-      <button id="playpauseBtn">⏯️</button>
-      <button id="plus10">⏩</button>
-    </div>
+    
+   
+  </div>
+  <div>
+    <video class="vdoPlr" id="vdoPlr" controls></video>
+  </div>
+  <div id="videoControlls">
+    <button id="min10">⏪</button>
+    <button id="playpauseBtn">⏯️</button>
+    <button id="plus10">⏩</button>Press "Enter" to Close
+  </div>
+  <object type="application/oipfApplicationManager" id="appMan"></object>
   </body>
 </html>

@@ -4,6 +4,12 @@ body {
   background-image: url();
   background-size: 1024px 720px;
 }
+#divBody{
+  height: 720px;
+  width: 1024px;
+  background-image: url();
+  background-size: 1024px 720px;
+}
 #tvScreen {
   height: 50%;
   width: 50%;
@@ -184,6 +190,36 @@ section {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   z-index: 9999;
 }
-prev-btn-news{
-  float: right;
+#prev-btn-news{
+ margin-left: 265px;
+ margin-top: 15px;
+}
+#next-btn-news{
+  margin-left: 265px;
+  margin-bottom: 15px;
+ }
+#newsInfo{
+  text-align:end;
+  margin-right: 10px;
+  position: relative;
+  height: 50%;
+  width: 50%;
+  top: 25%;
+  left: 25%;
+  display: none;
+  z-index: 9;
+  background-color: lightgreen;
+  
+}
+#newsTitle{
+  text-align: center;
+  position: relative;
+  margin-right: 10px;
+  top: -300px;
+}
+#newsDesc{
+  text-align: center;
+  position: relative;
+  margin-right: 10px;
+  top: -300px;
 }
