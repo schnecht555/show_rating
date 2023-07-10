@@ -1,5 +1,4 @@
 export class jsonmanager {
-
   loadJson() {
     let promise = new Promise(function (resolve, reject) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -43,14 +42,15 @@ export class jsonmanager {
   }
   loadCarousel() {
     let arrayVideo = [];
-    
+
     let promise = new Promise(function (resolve, reject) {
       $.ajax({
         url: "https://feed.entertainment.tv.theplatform.eu/f/PR1GhC/mediaset-prod-all-programs-v2?byCustomValue={subBrandId}{9910595|9890596|9900597}&sort=mediasetprogram$publishInfo_lastPublished|desc&range=1-25&20230703152711",
         dataType: "json",
         success: function (data) {
           for (let i = 0; i < data.entries.length; i++) {
-            let imgUrl = data.entries[i].thumbnails["image_vertical-192x288"].url;
+            let imgUrl =
+              data.entries[i].thumbnails["image_vertical-192x288"].url;
             let videoUrl = data.entries[i].media[0].publicUrl;
             let title = data.entries[i].title;
             arrayVideo.push({
@@ -60,7 +60,32 @@ export class jsonmanager {
             });
           }
           resolve(arrayVideo);
+        },
+      });
+    });
 
+    return promise;
+  }
+
+  loadDownWardsCarousel() {
+    let arrayNews = [];
+
+    let promise = new Promise(function (resolve, reject) {
+      $.ajax({
+        url: "https://enabler.finconsgroup.com/php/rating-app/news.json",
+        dataType: "json",
+        success: function (data) {
+          for (let i = 0; i < data.data.length; i++) {
+            let image_url = data.data[i].image_url;
+            let newsTitle = data.data[i].title;
+            let newsDesc = data.data[i].description;
+            arrayNews.push({
+              title: newsTitle,
+              description: newsDesc,
+              image_url: image_url,
+            });
+          }
+          resolve(arrayNews);
         },
       });
     });
