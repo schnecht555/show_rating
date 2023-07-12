@@ -265,10 +265,10 @@ function component() {
     } else if (event.keyCode === 32) {
       if (video.paused) {
         video.play();
-        $("#playpauseBtn").html("⏸️");
+        $("#playpauseBtn").html("||");
       } else {
         video.pause();
-        $("#playpauseBtn").html("▶️");
+        $("#playpauseBtn").html(">");
       }
     } else if (event.keyCode === 39) {
       video.currentTime = video.currentTime + 10;
@@ -280,10 +280,10 @@ function component() {
   $("#playpauseBtn").click(function () {
     if (video.paused) {
       video.play();
-      $("#playpauseBtn").html("⏸️");
+      $("#playpauseBtn").html("||");
     } else {
       video.pause();
-      $("#playpauseBtn").html("▶️");
+      $("#playpauseBtn").html(">");
     }
   });
   $("#min10").click(function () {

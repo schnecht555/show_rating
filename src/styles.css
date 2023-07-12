@@ -223,3 +223,24 @@ section {
   margin-right: 10px;
   top: -300px;
 }
+ #next-btn, #prev-btn {
+  height: 10px;
+  width: 10px;
+  background-color: lightgrey;
+  text-align: center;
+  color: blue;
+  font-weight: 700;
+
+}
+#min10, #playpauseBtn, #plus10, #prev-btn-news, #next-btn-news{
+  height: 20px;
+  width: 20px;
+  background-color: lightgrey;
+  text-align: center;
+  color: blue;
+  font-weight: 700;
+}
+#min10, #playpauseBtn, #plus10{
+  display: inline-block;
+  margin-left: 5px;
+}

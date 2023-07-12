@@ -72,7 +72,7 @@ export class jsonmanager {
 
     let promise = new Promise(function (resolve, reject) {
       $.ajax({
-        url: "https://enabler.finconsgroup.com/php/rating-app/news.json",
+        url: /*"https://enabler.finconsgroup.com/php/rating-app/news.json"*/"https://api.thenewsapi.com/v1/news/top?api_token=Ng6EtG7SOAUn5YS4JHZPDhB9WZI1qXU6aT2DHEM7&locale=us&limit=3&page=1",
         dataType: "json",
         success: function (data) {
           for (let i = 0; i < data.data.length; i++) {
