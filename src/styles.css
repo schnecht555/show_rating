@@ -240,7 +240,18 @@ section {
   color: blue;
   font-weight: 700;
 }
-#min10, #playpauseBtn, #plus10{
+#min10, #playpauseBtn, #plus10,#controllText{
   display: inline-block;
   margin-left: 5px;
+}
+#controllText{
+  height: 20px;
+  width: 180px;
+  background-color: lightgrey;
+  text-align: center;
+  color: blue;
+  font-weight: 700;
+}
+#appManDiv {
+  display: none;
 }

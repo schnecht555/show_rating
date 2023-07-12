@@ -231,7 +231,7 @@ function component() {
       if (!$(".vdoPlr").is(":visible")) {
         $("#newsInfo").hide();
         $("#info").hide();
-        $("#appMan").hide();
+        $("#appManDiv").show();
         $("#voteBox").hide();
         $("#tvScreen").hide();
         $(".slider-container").hide();
@@ -250,7 +250,7 @@ function component() {
         $("#divBody").show();
         $("#newsInfo").show();
         $("#info").show();
-        $("#appMan").show();
+        $("#appManDiv").hide();
         $("#voteBox").show();
         $("#tvScreen").show();
         $(".slider-container").show();
