@@ -15,9 +15,10 @@ currentPage =3 => info page
 
 let currentPage = 1;
 let currentPos = 1;
+let currentPosVid = 1;
 let currentIndex = 0;
 let selected = 0;
-let slides = null; 
+let slides = null;
 let articles = null;
 let slidesToShow = 0;
 let currentArticleIndex = 0;
@@ -25,6 +26,9 @@ let articlesToShow = 0;
 let globalArrayNewsCarousel = null;
 let keyset = null;
 let arrayVideo = null;
+let video = null;
+let app = null;
+let appMan = null;
 
 function showSlides() {
   slides = document.getElementsByClassName("slider");
@@ -42,24 +46,24 @@ function showSlides() {
 
 function showArticles() {
   articles = document.getElementsByClassName("article");
-    let totalArticles = articles.length;
+  let totalArticles = articles.length;
 
-   for (let i = 0; i < totalArticles; i++) {
-     articles[i].style.display = "none";
-   }
+  for (let i = 0; i < totalArticles; i++) {
+    articles[i].style.display = "none";
+  }
 
-   for (let i = 0; i < articlesToShow; i++) {
-     const index = (currentArticleIndex + i) % totalArticles;
-     articles[index].style.display = "block";
-   }
- }
+  for (let i = 0; i < articlesToShow; i++) {
+    const index = (currentArticleIndex + i) % totalArticles;
+    articles[index].style.display = "block";
+  }
+}
 
-function registerKeyboardEvents( onCustomKeyDown) {
+function registerKeyboardEvents(onCustomKeyDown) {
   keyset.setValue(keyset.NAVIGATION);
   document.addEventListener("keydown", onCustomKeyDown);
 }
 
-function unregisterKeyboardEvents( onCustomKeyDown) {
+function unregisterKeyboardEvents(onCustomKeyDown) {
   document.removeEventListener("keydown", onCustomKeyDown);
   keyset.setValue(0);
 }
@@ -136,7 +140,7 @@ function onKeyDownMain(e) {
         currentPos = 4;
         $("#next-btn-news").css({ "background-color": "yellow" });
         $("#info").css({ "background-image": "url()" });
-      }else if (currentPos == 4) {
+      } else if (currentPos == 4) {
         currentPos = 3;
         $("#next-btn-news").css({ "background-color": "lightgrey" });
         $("#next-btn").css({ "background-color": "yellow" });
@@ -155,7 +159,7 @@ function onKeyDownMain(e) {
         }
         console.log(selected);
         showSlides();
-      }else if(currentPos==2){
+      } else if (currentPos == 2) {
         $("#newsInfo").hide();
         $("#info").hide();
         $("#appManDiv").show();
@@ -176,8 +180,9 @@ function onKeyDownMain(e) {
         currentPage = 2;
         unregisterKeyboardEvents(onKeyDownMain);
         registerKeyboardEvents(onKeyDownVideo);
-
-      }else if(currentPos == 3){
+        $("#min10").css({ "background-color": "yellow" });
+        $("#controllText").css({ "background-color": "lightgrey" });
+      } else if (currentPos == 3) {
         currentIndex++;
         selected++;
         if (currentIndex >= slides.length) {
@@ -187,29 +192,29 @@ function onKeyDownMain(e) {
         console.log(selected);
 
         showSlides();
-      }else if(currentPos == 4){
+      } else if (currentPos == 4) {
         currentArticleIndex--;
-          if (currentArticleIndex < 0) {
-            currentArticleIndex = articles.length - 1;
-          }
-          showArticles();
-      }else if(currentPos==5){
+        if (currentArticleIndex < 0) {
+          currentArticleIndex = articles.length - 1;
+        }
+        showArticles();
+      } else if (currentPos == 5) {
         currentPage = 3;
         const selectedArticle = articles[currentArticleIndex];
         const selectedTitle = selectedArticle.querySelector("img").title;
         const selectedDescription =
-        globalArrayNewsCarousel[currentArticleIndex].description;
+          globalArrayNewsCarousel[currentArticleIndex].description;
         $("#newsTitle").html(selectedTitle);
         $("#newsDesc").html(selectedDescription);
         $("#newsInfo").show();
         unregisterKeyboardEvents(onKeyDownMain);
         registerKeyboardEvents(onKeyDownInfo);
-      }else if(currentPos==6){
+      } else if (currentPos == 6) {
         currentArticleIndex++;
-          if (currentArticleIndex >= articles.length) {
-            currentArticleIndex = 0;
-          }
-          showArticles();
+        if (currentArticleIndex >= articles.length) {
+          currentArticleIndex = 0;
+        }
+        showArticles();
       }
 
       break;
@@ -221,19 +226,75 @@ function onKeyDownMain(e) {
 //currentpage=2
 function onKeyDownVideo(e) {
   switch (e.keyCode) {
+    case KeyEvent.VK_RIGHT:
     case e.VK_RIGHT:
-      //moveRight()
+      if (currentPosVid <= 1) {
+        currentPosVid = 2;
+        $("#min10").css({ "background-color": "lightgrey" });
+        $("#playpauseBtn").css({ "background-color": "yellow" });
+      } else if (currentPosVid == 2) {
+        currentPosVid = 3;
+        $("#playpauseBtn").css({ "background-color": "lightgrey" });
+        $("#plus10").css({ "background-color": "yellow" });
+      } else if (currentPosVid == 3) {
+        currentPosVid = 4;
+        $("#plus10").css({ "background-color": "lightgrey" });
+        $("#controllText").css({ "background-color": "yellow" });
+      }
 
       break;
-
+    case KeyEvent.VK_LEFT:
     case e.VK_LEFT:
-      //moveLeft();
+      if (currentPosVid == 2) {
+        currentPosVid = 1;
+        $("#min10").css({ "background-color": "yellow" });
+        $("#playpauseBtn").css({ "background-color": "lightgrey" });
+      } else if (currentPosVid == 3) {
+        currentPosVid = 2;
+        $("#playpauseBtn").css({ "background-color": "yellow" });
+        $("#plus10").css({ "background-color": "lightgrey" });
+      } else if (currentPosVid == 4) {
+        currentPosVid = 3;
+        $("#plus10").css({ "background-color": "yellow" });
+        $("#controllText").css({ "background-color": "lightgrey" });
+      }
 
       break;
-
+    case KeyEvent.VK_ENTER:
     case e.VK_ENTER:
-      // manageEnter();
-
+      if (currentPosVid == 1) {
+        video.currentTime = video.currentTime - 10;
+      } else if (currentPosVid == 2) {
+        if (video.paused) {
+          video.play();
+          $("#playpauseBtn").html("||");
+        } else {
+          video.pause();
+          $("#playpauseBtn").html(">");
+        }
+      } else if (currentPosVid == 3) {
+        video.currentTime = video.currentTime + 10;
+      } else if (currentPosVid == 4) {
+        currentPosVid = 1;
+        $("#divBody").show();
+        $("#newsInfo").show();
+        $("#info").show();
+        $("#appManDiv").hide();
+        $("#voteBox").show();
+        $("#tvScreen").show();
+        $(".slider-container").show();
+        $(".vdoPlr").hide();
+        $("#videoControlls").hide();
+        $("#min10").hide();
+        $("#playpauseBtn").hide();
+        $("#plus10").hide();
+        $("#newsInfo").hide();
+        $(".vdoPlr").hide();
+        unregisterKeyboardEvents(onKeyDownVideo);
+        registerKeyboardEvents(onKeyDownMain);
+        currentPage = 1;
+        currentPosVid = 1;
+      }
       break;
 
     default:
@@ -243,34 +304,37 @@ function onKeyDownVideo(e) {
 //currentpage=3
 function onKeyDownInfo(e) {
   switch (e.keyCode) {
+    case KeyEvent.VK_ENTER:
     case e.VK_ENTER:
-      // manageEnter();
-
+      console.log("3Enter");
+      $("#newsInfo").hide();
+      unregisterKeyboardEvents(onKeyDownInfo);
+      registerKeyboardEvents(onKeyDownMain);
+      currentPage = 1;
       break;
-
     default:
       return;
   }
 }
 
 function component() {
-  const appMan = document.getElementById("appMan");
-  let app = appMan.getOwnerApplication(document);
+  appMan = document.getElementById("appMan");
+  app = appMan.getOwnerApplication(document);
   keyset = app.privateData.keyset;
 
   registerKeyboardEvents(onKeyDownMain);
 
   app.show();
-  
+
   let mng = new jsonmanager();
   var eng = new engine();
   var Vote = 5;
   eng.init();
   var id = 0;
- 
+
   let arrayNews = null;
   let select = 0;
-  const video = document.getElementById("vdoPlr");
+  video = document.getElementById("vdoPlr");
 
   mng
     .loadDownWardsCarousel()
@@ -284,8 +348,6 @@ function component() {
       articlesToShow = 2;
       currentArticleIndex = 0;
 
-      
-
       for (let i = 0; i < arrayNewsCarousel.length; i++) {
         const article = document.createElement("div");
         article.className = "article";
@@ -298,7 +360,7 @@ function component() {
         newsContainer.appendChild(article);
       }
 
-       articles = document.getElementsByClassName("article");
+      articles = document.getElementsByClassName("article");
       if (articles.length > 0) {
         articles[0].style.display = "block";
       }
@@ -376,10 +438,7 @@ function component() {
       const prevBtn = document.getElementById("prev-btn");
       const nextBtn = document.getElementById("next-btn");
 
-     slidesToShow = 4;
-      
-
-      
+      slidesToShow = 4;
 
       for (let i = 0; i < arrayVideo.length; i++) {
         const slide = document.createElement("div");
