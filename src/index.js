@@ -124,6 +124,10 @@ function onKeyDownMain(e) {
         currentPos = 6;
         $("#prev-btn-news").css({ "background-color": "yellow" });
         $("#info").css({ "background-image": "url()" });
+      }else if (currentPos == 6){
+        currentPos = 7;
+        $("#epgBtn").css({ "background-color": "yellow" });
+        $("#prev-btn-news").css({ "background-color": "lightgrey" });
       }
       break;
     case KeyEvent.VK_DOWN:
@@ -144,6 +148,10 @@ function onKeyDownMain(e) {
         currentPos = 3;
         $("#next-btn-news").css({ "background-color": "lightgrey" });
         $("#next-btn").css({ "background-color": "yellow" });
+      }else if (currentPos == 7){
+        currentPos = 6;
+        $("#epgBtn").css({ "background-color": "lightgrey" });
+        $("#prev-btn-news").css({ "background-color": "yellow" });
       }
 
       break;
@@ -214,7 +222,11 @@ function onKeyDownMain(e) {
         if (currentArticleIndex >= articles.length) {
           currentArticleIndex = 0;
         }
-        showArticles();
+      } else if (currentPos == 7) {
+        currentPage = 4;
+        $("#epgInfo").show();
+        unregisterKeyboardEvents(onKeyDownMain);
+        registerKeyboardEvents(onKeyDownEpg);
       }
 
       break;
@@ -236,10 +248,6 @@ function onKeyDownVideo(e) {
         currentPosVid = 3;
         $("#playpauseBtn").css({ "background-color": "lightgrey" });
         $("#plus10").css({ "background-color": "yellow" });
-      } else if (currentPosVid == 3) {
-        currentPosVid = 4;
-        $("#plus10").css({ "background-color": "lightgrey" });
-        $("#controllText").css({ "background-color": "yellow" });
       }
 
       break;
@@ -253,11 +261,30 @@ function onKeyDownVideo(e) {
         currentPosVid = 2;
         $("#playpauseBtn").css({ "background-color": "yellow" });
         $("#plus10").css({ "background-color": "lightgrey" });
-      } else if (currentPosVid == 4) {
-        currentPosVid = 3;
-        $("#plus10").css({ "background-color": "yellow" });
-        $("#controllText").css({ "background-color": "lightgrey" });
       }
+
+      break;
+    case KeyEvent.VK_BACK:
+    case e.VK_BACK:
+      currentPosVid = 1;
+      $("#divBody").show();
+      $("#newsInfo").show();
+      $("#info").show();
+      $("#appManDiv").hide();
+      $("#voteBox").show();
+      $("#tvScreen").show();
+      $(".slider-container").show();
+      $(".vdoPlr").hide();
+      $("#videoControlls").hide();
+      $("#min10").hide();
+      $("#playpauseBtn").hide();
+      $("#plus10").hide();
+      $("#newsInfo").hide();
+      $(".vdoPlr").hide();
+      unregisterKeyboardEvents(onKeyDownVideo);
+      registerKeyboardEvents(onKeyDownMain);
+      currentPage = 1;
+      currentPosVid = 1;
 
       break;
     case KeyEvent.VK_ENTER:
@@ -274,26 +301,6 @@ function onKeyDownVideo(e) {
         }
       } else if (currentPosVid == 3) {
         video.currentTime = video.currentTime + 10;
-      } else if (currentPosVid == 4) {
-        currentPosVid = 1;
-        $("#divBody").show();
-        $("#newsInfo").show();
-        $("#info").show();
-        $("#appManDiv").hide();
-        $("#voteBox").show();
-        $("#tvScreen").show();
-        $(".slider-container").show();
-        $(".vdoPlr").hide();
-        $("#videoControlls").hide();
-        $("#min10").hide();
-        $("#playpauseBtn").hide();
-        $("#plus10").hide();
-        $("#newsInfo").hide();
-        $(".vdoPlr").hide();
-        unregisterKeyboardEvents(onKeyDownVideo);
-        registerKeyboardEvents(onKeyDownMain);
-        currentPage = 1;
-        currentPosVid = 1;
       }
       break;
 
@@ -304,9 +311,9 @@ function onKeyDownVideo(e) {
 //currentpage=3
 function onKeyDownInfo(e) {
   switch (e.keyCode) {
-    case KeyEvent.VK_ENTER:
-    case e.VK_ENTER:
-      console.log("3Enter");
+    case KeyEvent.VK_BACK:
+    case e.VK_BACK:
+      console.log("BACK");
       $("#newsInfo").hide();
       unregisterKeyboardEvents(onKeyDownInfo);
       registerKeyboardEvents(onKeyDownMain);
@@ -316,6 +323,22 @@ function onKeyDownInfo(e) {
       return;
   }
 }
+//currentpage=4
+function onKeyDownEpg(e) {
+  switch (e.keyCode) {
+    case KeyEvent.VK_BACK:
+    case e.VK_BACK:
+      console.log("BACK");
+      $("#epgInfo").hide();
+      unregisterKeyboardEvents(onKeyDownEpg);
+      registerKeyboardEvents(onKeyDownMain);
+      currentPage = 1;
+      break;
+    default:
+      return;
+  }
+}
+
 
 function component() {
   appMan = document.getElementById("appMan");

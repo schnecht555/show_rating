@@ -11,23 +11,24 @@ body {
   background-size: 1024px 720px;
 }
 #tvScreen {
-  height: 50%;
-  width: 50%;
+  height: 60%;
+  width: 60%;
   float: left;
-  margin-top: -36px;
+  margin-top: -43px;
 }
 
 #info {
   float: right;
-  height: 50%;
-  width: 49%;
+  height: 48%;
+  width: 39%;
   border: blue;
   border-width: 5px;
   background-image: url();
   background-size: 169px 111px;
-    background-repeat: no-repeat;
-    background-position-x: 57%;
-    background-position-y: 76%;
+  background-repeat: no-repeat;
+  background-position-x: 60%;
+  background-position-y: 100%;
+  margin-top: -10px;
 }
 /*
 section {
@@ -98,9 +99,9 @@ section {
 .slider-container {
   position: relative;
   overflow: hidden;
-  height: 40%;
+  height: 36%;
   width: 100%;
-  top: 60px;
+  top: 40px;
 }
 
 .slider {
@@ -198,37 +199,34 @@ section {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   z-index: 9999;
 }
+
 #prev-btn-news {
-  margin-left: 265px;
+  margin-left: 210px;
   margin-top: 15px;
 }
 #next-btn-news {
-  margin-left: 265px;
+  margin-left: 210px;
   margin-bottom: 15px;
 }
 #newsInfo {
   text-align: end;
   margin-right: 10px;
-  position: relative;
+  position: absolute;
   height: 50%;
   width: 50%;
   top: 25%;
-  left: 25%;
+  left: 15%;
   display: none;
   z-index: 9;
   background-color: lightgreen;
 }
 #newsTitle {
   text-align: center;
-  position: relative;
   margin-right: 10px;
-  top: -300px;
 }
 #newsDesc {
   text-align: center;
-  position: relative;
   margin-right: 10px;
-  top: -300px;
 }
 #next-btn,
 #prev-btn {
@@ -268,4 +266,30 @@ section {
 }
 #appManDiv {
   display: none;
+}
+#epgInfo {
+  text-align: end;
+  margin-right: 10px;
+  position: absolute;
+  height: 50%;
+  width: 50%;
+  top: 25%;
+  left: 15%;
+  display: none;
+  z-index: 7;
+  background-color: gainsboro;
+}
+#epgBtn {
+  height: 20px;
+  width: 40px;
+  background-color: lightgrey;
+  text-align: center;
+  color: blue;
+  font-weight: 700;
+  margin: 25px 0 15px 200px;
+}
+#backPopup {
+  position: relative;
+  top: 250px;
+  right: 10px;
 }
