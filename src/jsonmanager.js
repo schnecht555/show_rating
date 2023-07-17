@@ -87,10 +87,44 @@ export class jsonmanager {
             });
           }
           resolve(arrayNews);
+          console.log(arrayNews);
         },
       });
     });
 
     return promise;
   }
+
+  loadChannelCarousel() {
+    return new Promise(function (resolve, reject) {
+      fetch("http://static3.mediasetplay.mediaset.it/apigw/nownext/nownext.json")
+        .then(response => response.json())
+        .then(data => {
+          const listings = data.response.listings;
+          const entries = [];
+  
+          for (const listeningName in listings) {
+            const currentListing = listings[listeningName].currentListing;
+            const nextListing = listings[listeningName].nextListing;
+  
+            const currentTitle = currentListing?.program?.title || "";
+            const nextTitle = nextListing?.program?.title || "";
+  
+            entries.push({
+              listeningName: listeningName,
+              currentTitle: currentTitle,
+              nextTitle: nextTitle
+            });
+          }
+  
+          resolve(entries);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+  
+  
+  
 }

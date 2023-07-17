@@ -6,6 +6,8 @@ import {
 } from "./lib/cdn.dashjs.org_latest_dash.all.min.js";
 import { engine } from "./engine";
 import { jsonmanager } from "./jsonmanager";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick.js';
 
 /*
 currentPage =1 => main page
@@ -13,6 +15,7 @@ currentPage =2 => video page
 currentPage =3 => info page
 */
 
+let currentPosEPG = 1;
 let currentPage = 1;
 let currentPos = 1;
 let currentPosVid = 1;
@@ -24,11 +27,51 @@ let slidesToShow = 0;
 let currentArticleIndex = 0;
 let articlesToShow = 0;
 let globalArrayNewsCarousel = null;
+let globalArrayChannelCarousel = null;
 let keyset = null;
 let arrayVideo = null;
 let video = null;
 let app = null;
 let appMan = null;
+let currentRow = null;
+
+function generateTableRows(data) {
+  const tableBody = document.querySelector("#data-table tbody");  
+  tableBody.innerHTML = "";
+    for (let i = currentRow * 4; i < (currentRow + 1) * 4 && i < data.length; i++) {
+    const row = data[i];
+    const tr = document.createElement("tr");
+
+    const listeningNameCell = document.createElement("td");
+    listeningNameCell.textContent = row.listeningName;
+    tr.appendChild(listeningNameCell);
+
+    const currentTitleCell = document.createElement("td");
+    currentTitleCell.textContent = row.currentTitle;
+    tr.appendChild(currentTitleCell);
+
+    const nextTitleCell = document.createElement("td");
+    nextTitleCell.textContent = row.nextTitle;
+    tr.appendChild(nextTitleCell);
+
+    tableBody.appendChild(tr);
+  }
+}
+
+
+function showPrevious() {
+  if (currentRow > 0) {
+    currentRow--;
+    generateTableRows(globalArrayChannelCarousel);
+  }
+}
+
+function showNext() {
+  if ((currentRow + 1) * 4 < globalArrayChannelCarousel.length) {
+    currentRow++;
+    generateTableRows(globalArrayChannelCarousel);
+  }
+}
 
 function showSlides() {
   slides = document.getElementsByClassName("slider");
@@ -124,7 +167,7 @@ function onKeyDownMain(e) {
         currentPos = 6;
         $("#prev-btn-news").css({ "background-color": "yellow" });
         $("#info").css({ "background-image": "url()" });
-      }else if (currentPos == 6){
+      } else if (currentPos == 6) {
         currentPos = 7;
         $("#epgBtn").css({ "background-color": "yellow" });
         $("#prev-btn-news").css({ "background-color": "lightgrey" });
@@ -148,7 +191,7 @@ function onKeyDownMain(e) {
         currentPos = 3;
         $("#next-btn-news").css({ "background-color": "lightgrey" });
         $("#next-btn").css({ "background-color": "yellow" });
-      }else if (currentPos == 7){
+      } else if (currentPos == 7) {
         currentPos = 6;
         $("#epgBtn").css({ "background-color": "lightgrey" });
         $("#prev-btn-news").css({ "background-color": "yellow" });
@@ -197,7 +240,6 @@ function onKeyDownMain(e) {
           currentIndex = 0;
           selected = 0;
         }
-        console.log(selected);
 
         showSlides();
       } else if (currentPos == 4) {
@@ -325,6 +367,7 @@ function onKeyDownInfo(e) {
 }
 //currentpage=4
 function onKeyDownEpg(e) {
+  
   switch (e.keyCode) {
     case KeyEvent.VK_BACK:
     case e.VK_BACK:
@@ -334,11 +377,44 @@ function onKeyDownEpg(e) {
       registerKeyboardEvents(onKeyDownMain);
       currentPage = 1;
       break;
+
+
+
+      case KeyEvent.VK_RIGHT:
+        case e.VK_RIGHT:
+          if (currentPosEPG <= 1) {
+            currentPosEPG = 2;
+            $("#prev-btn-channel").css({ "background-color": "lightgrey" });
+            $("#next-btn-channel").css({ "background-color": "yellow" });
+          }     
+          break;
+        case KeyEvent.VK_LEFT:
+        case e.VK_LEFT:
+          if (currentPosEPG == 2) {
+            currentPosEPG = 1;
+            $("#next-btn-channel").css({ "background-color": "lightgrey" });
+            $("#prev-btn-channel").css({ "background-color": "yellow" });
+          } 
+    
+          break;
+        
+        case KeyEvent.VK_ENTER:
+        case e.VK_ENTER:
+          if (currentPosEPG == 1) {
+            showPrevious(); 
+          } else if (currentPosEPG == 2) {
+           showNext();
+          } 
+          break;
+
+
+
+
+
     default:
       return;
   }
 }
-
 
 function component() {
   appMan = document.getElementById("appMan");
@@ -362,8 +438,9 @@ function component() {
   mng
     .loadDownWardsCarousel()
     .then(function (arrayNewsCarousel) {
-      console.log(arrayNewsCarousel);
-      globalArrayNewsCarousel = arrayNewsCarousel;
+        globalArrayNewsCarousel = arrayNewsCarousel;
+        console.log(arrayNewsCarousel);
+      
       const newsContainer = document.getElementById("news-container");
       const prevBtnNews = document.getElementById("prev-btn-news");
       const nextBtnNews = document.getElementById("next-btn-news");
@@ -450,6 +527,131 @@ function component() {
     .catch(function (error) {
       console.log(error);
     });
+    
+
+
+
+
+
+    let currentRow = 0;
+
+    
+    
+    
+    
+    
+    document.getElementById("prev-btn-channel").addEventListener("click", showPrevious);
+    document.getElementById("next-btn-channel").addEventListener("click", showNext);
+    
+   
+    mng.loadChannelCarousel()
+      .then(function (arrayChannelCarousel) {
+        globalArrayChannelCarousel = arrayChannelCarousel;
+        console.log(arrayChannelCarousel);
+        
+         generateTableRows(globalArrayChannelCarousel);
+      })
+      .catch(function (error) {
+        console.log("Error loading carousel:", error);
+      });
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    mng.loadCarousel()
+      .then(function (arrayVideoCarousel) {
+        arrayVideo = arrayVideoCarousel;
+       
+
+    
+        const imageContainer = document.getElementById("image-container");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+    
+        slidesToShow = 4;
+    
+        for (let i = 0; i < arrayVideo.length; i++) {
+          const slide = document.createElement("div");
+          slide.className = "slider";
+    
+          const img = document.createElement("img");
+          img.src = arrayVideo[i].imgUrl;
+          img.title = arrayVideo[i].title;
+          slide.appendChild(img);
+    
+          imageContainer.appendChild(slide);
+        }
+    
+        slides = document.getElementsByClassName("slider");
+        if (slides.length > 0) {
+          slides[0].style.display = "block";
+        }
+    
+        prevBtn.addEventListener("click", function () {
+          currentIndex--;
+          selected--;
+          if (currentIndex < 0) {
+            currentIndex = slides.length - 1;
+            selected = slides.length - 1;
+          }
+          
+          showSlides();
+        });
+    
+        nextBtn.addEventListener("click", function () {
+          currentIndex++;
+          selected++;
+          if (currentIndex >= slides.length) {
+            currentIndex = 0;
+            selected = 0;
+          }
+         
+    
+          showSlides();
+        });
+    
+        showSlides();
+    
+        setInterval(function () {
+          currentIndex++;
+    
+          if (currentIndex >= slides.length) {
+            currentIndex = 0;
+          }
+    
+          showSlides();
+        }, 1000000);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
+
+
+
 
   mng
     .loadCarousel()
@@ -487,7 +689,6 @@ function component() {
           currentIndex = slides.length - 1;
           selected = slides.length - 1;
         }
-        console.log(selected);
         showSlides();
       });
 
@@ -498,7 +699,7 @@ function component() {
           currentIndex = 0;
           selected = 0;
         }
-        console.log(selected);
+        
 
         showSlides();
       });

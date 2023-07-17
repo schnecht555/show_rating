@@ -289,7 +289,52 @@ section {
   margin: 25px 0 15px 200px;
 }
 #backPopup {
-  position: relative;
-  top: 250px;
+  position: absolute;
+  text-align: end;
   right: 10px;
+  top: 246px  
 }
+#table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#data-table {
+  margin-bottom: 10px;
+}
+
+#buttons {
+  display: flex;
+  justify-content: center;
+}
+
+#prev-btn-channel,
+#next-btn-channel {
+  height: 20px;
+  width: 20px;
+  background-color: lightgrey;
+  text-align: center;
+  color: blue;
+  font-weight: 700;
+  }
+td, tr{
+  text-align: center;
+}
+th{
+  width: 256px;
+}
+#prev-btn-channel {
+  position: absolute;
+  float: left;
+  top: 150px;
+  left: 10px;
+  }
+  #next-btn-channel {
+    position: absolute;
+    float: right;
+    top: 150px;
+    right: 10px;
+  }
+  
+
