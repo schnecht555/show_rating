@@ -109,11 +109,29 @@ export class jsonmanager {
   
             const currentTitle = currentListing?.program?.title || "";
             const nextTitle = nextListing?.program?.title || "";
-  
+            const currentStartTime = currentListing?.startTime;
+            const currentEndTime = currentListing?.endTime;
+            const nextStartTime = nextListing?.startTime;
+            const nextEndTime = nextListing?.endTime;
+            
+            function formatTime(timestamp) {
+              const date = new Date(timestamp);
+              const hours = date.getHours().toString().padStart(2, "0");
+              const minutes = date.getMinutes().toString().padStart(2, "0");
+              return `${hours}:${minutes}`;
+            }
+
+            const formattedCurrentStartTime = currentStartTime ? formatTime(currentStartTime) : "";
+            const formattedCurrentEndTime = currentEndTime ? formatTime(currentEndTime) : "";
+            const formattedNextStartTime = nextStartTime ? formatTime(nextStartTime) : "";
+            const formattedNextEndTime = nextEndTime ? formatTime(nextEndTime) : "";
+
+            const currentTitleWithTime = `${currentTitle} (${formattedCurrentStartTime} - ${formattedCurrentEndTime})`;
+            const nextTitleWithTime = `${nextTitle} (${formattedNextStartTime} - ${formattedNextEndTime})`;
             entries.push({
               listeningName: listeningName,
-              currentTitle: currentTitle,
-              nextTitle: nextTitle
+              currentTitle: currentTitleWithTime,
+              nextTitle: nextTitleWithTime
             });
           }
   

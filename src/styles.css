@@ -325,6 +325,7 @@ th{
   width: 256px;
 }
 #prev-btn-channel {
+  background-color: yellow;
   position: absolute;
   float: left;
   top: 150px;
