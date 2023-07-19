@@ -95,17 +95,32 @@ export class jsonmanager {
     return promise;
   }
 
-  loadChannelCarousel() {
+   loadChannelCarousel() {
     return new Promise(function (resolve, reject) {
       fetch("http://static3.mediasetplay.mediaset.it/apigw/nownext/nownext.json")
         .then(response => response.json())
         .then(data => {
           const listings = data.response.listings;
+          const stations = data.response.stations; 
           const entries = [];
+  
+          function getStationTitle(callSign, stations) {
+            for (const stationId in stations) {
+              const station = stations[stationId];
+              if (station.callSign === callSign) {
+                return station.title;
+              }
+            }
+            return "";
+          }
   
           for (const listeningName in listings) {
             const currentListing = listings[listeningName].currentListing;
             const nextListing = listings[listeningName].nextListing;
+            const callSign = listeningName;
+            
+            // Get the station title using the callSign
+            const listeningStation = getStationTitle(callSign, stations);
   
             const currentTitle = currentListing?.program?.title || "";
             const nextTitle = nextListing?.program?.title || "";
@@ -113,24 +128,24 @@ export class jsonmanager {
             const currentEndTime = currentListing?.endTime;
             const nextStartTime = nextListing?.startTime;
             const nextEndTime = nextListing?.endTime;
-            //test
-            
+  
+            // Function to format the timestamp into hh:mm format
             function formatTime(timestamp) {
               const date = new Date(timestamp);
               const hours = date.getHours().toString().padStart(2, "0");
               const minutes = date.getMinutes().toString().padStart(2, "0");
               return `${hours}:${minutes}`;
             }
-
+  
             const formattedCurrentStartTime = currentStartTime ? formatTime(currentStartTime) : "";
             const formattedCurrentEndTime = currentEndTime ? formatTime(currentEndTime) : "";
             const formattedNextStartTime = nextStartTime ? formatTime(nextStartTime) : "";
             const formattedNextEndTime = nextEndTime ? formatTime(nextEndTime) : "";
-
-            const currentTitleWithTime = `${currentTitle} (${formattedCurrentStartTime} - ${formattedCurrentEndTime})`;
-            const nextTitleWithTime = `${nextTitle} (${formattedNextStartTime} - ${formattedNextEndTime})`;
+  
+            const currentTitleWithTime = `${listeningStation} (${formattedCurrentStartTime} - ${formattedCurrentEndTime})`;
+            const nextTitleWithTime = `${listeningStation} (${formattedNextStartTime} - ${formattedNextEndTime})`;
             entries.push({
-              listeningName: listeningName,
+              listeningName: listeningStation,
               currentTitle: currentTitleWithTime,
               nextTitle: nextTitleWithTime
             });
@@ -143,6 +158,7 @@ export class jsonmanager {
         });
     });
   }
+  
   
   
   
