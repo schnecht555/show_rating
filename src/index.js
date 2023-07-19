@@ -6,8 +6,8 @@ import {
 } from "./lib/cdn.dashjs.org_latest_dash.all.min.js";
 import { engine } from "./engine";
 import { jsonmanager } from "./jsonmanager";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick.js';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick.js";
 
 /*
 currentPage =1 => main page
@@ -15,6 +15,7 @@ currentPage =2 => video page
 currentPage =3 => info page
 */
 
+let startPage = 1;
 let currentPosEPG = 1;
 let currentPage = 1;
 let currentPos = 1;
@@ -36,9 +37,13 @@ let appMan = null;
 let currentRow = null;
 
 function generateTableRows(data) {
-  const tableBody = document.querySelector("#data-table tbody");  
+  const tableBody = document.querySelector("#data-table tbody");
   tableBody.innerHTML = "";
-    for (let i = currentRow * 4; i < (currentRow + 1) * 4 && i < data.length; i++) {
+  for (
+    let i = currentRow * 4;
+    i < (currentRow + 1) * 4 && i < data.length;
+    i++
+  ) {
     const row = data[i];
     const tr = document.createElement("tr");
 
@@ -57,7 +62,6 @@ function generateTableRows(data) {
     tableBody.appendChild(tr);
   }
 }
-
 
 function showPrevious() {
   if (currentRow > 0) {
@@ -131,6 +135,7 @@ function onKeyDownMain(e) {
         $("#next-btn").css({ "background-color": "yellow" });
       }
       break;
+
     case KeyEvent.VK_LEFT:
     case e.VK_LEFT:
       console.log("L");
@@ -272,6 +277,20 @@ function onKeyDownMain(e) {
       }
 
       break;
+    case KeyEvent.VK_BACK:
+    case e.VK_BACK:
+      startPage = 1;
+      currentPos = 1;
+      $("#newsInfo").hide();
+      $("#info").hide();
+      $(".slider-container").hide();
+      $("#tvScreen").height("100%");
+      $("#tvScreen").width("100%");
+      $("#divBody").hide();
+      unregisterKeyboardEvents(onKeyDownMain);
+      registerKeyboardEvents(onKeyDownStart);
+
+      break;
 
     default:
       return;
@@ -328,7 +347,6 @@ function onKeyDownVideo(e) {
       registerKeyboardEvents(onKeyDownMain);
       currentPage = 1;
       currentPosVid = 1;
-     
 
       break;
     case KeyEvent.VK_ENTER:
@@ -369,7 +387,6 @@ function onKeyDownInfo(e) {
 }
 //currentpage=4
 function onKeyDownEpg(e) {
-  
   switch (e.keyCode) {
     case KeyEvent.VK_BACK:
     case e.VK_BACK:
@@ -380,53 +397,59 @@ function onKeyDownEpg(e) {
       currentPage = 1;
       break;
 
+    case KeyEvent.VK_RIGHT:
+    case e.VK_RIGHT:
+      if (currentPosEPG <= 1) {
+        currentPosEPG = 2;
+        $("#prev-btn-channel").css({ "background-color": "lightgrey" });
+        $("#next-btn-channel").css({ "background-color": "yellow" });
+      }
+      break;
+    case KeyEvent.VK_LEFT:
+    case e.VK_LEFT:
+      if (currentPosEPG == 2) {
+        currentPosEPG = 1;
+        $("#next-btn-channel").css({ "background-color": "lightgrey" });
+        $("#prev-btn-channel").css({ "background-color": "yellow" });
+      }
 
+      break;
 
-      case KeyEvent.VK_RIGHT:
-        case e.VK_RIGHT:
-          if (currentPosEPG <= 1) {
-            currentPosEPG = 2;
-            $("#prev-btn-channel").css({ "background-color": "lightgrey" });
-            $("#next-btn-channel").css({ "background-color": "yellow" });
-          }     
-          break;
-        case KeyEvent.VK_LEFT:
-        case e.VK_LEFT:
-          if (currentPosEPG == 2) {
-            currentPosEPG = 1;
-            $("#next-btn-channel").css({ "background-color": "lightgrey" });
-            $("#prev-btn-channel").css({ "background-color": "yellow" });
-          } 
-    
-          break;
-        
-        case KeyEvent.VK_ENTER:
-        case e.VK_ENTER:
-          if (currentPosEPG == 1) {
-            showPrevious(); 
-          } else if (currentPosEPG == 2) {
-           showNext();
-          } 
-          break;
-
-
-
-
+    case KeyEvent.VK_ENTER:
+    case e.VK_ENTER:
+      if (currentPosEPG == 1) {
+        showPrevious();
+      } else if (currentPosEPG == 2) {
+        showNext();
+      }
+      break;
 
     default:
       return;
   }
 }
+function onKeyDownStart(e) {
+  switch (e.keyCode) {
+    case KeyEvent.VK_UP:
+    case e.VK_UP:
+      console.log("up");
+        startPage = 0;
+        
+        $("#tvScreen").show();
+        $("#divBody").show();
+        $("#info").show();
+        $("#slider").show();
+        loadMainPage();
+        unregisterKeyboardEvents(onKeyDownStart);
+        registerKeyboardEvents(onKeyDownMain);
+      
+    default:
+      return;
+  }
+}
 
-function component() {
-  appMan = document.getElementById("appMan");
-  app = appMan.getOwnerApplication(document);
-  keyset = app.privateData.keyset;
-
+function loadMainPage(){
   registerKeyboardEvents(onKeyDownMain);
-
-  app.show();
-
   let mng = new jsonmanager();
   var eng = new engine();
   var Vote = 5;
@@ -436,13 +459,14 @@ function component() {
   let arrayNews = null;
   let select = 0;
   video = document.getElementById("vdoPlr");
-
+  $("#tvScreen").height("60%");
+  $("#tvScreen").width("60%");
   mng
     .loadDownWardsCarousel()
     .then(function (arrayNewsCarousel) {
-        globalArrayNewsCarousel = arrayNewsCarousel;
-        console.log(arrayNewsCarousel);
-      
+      globalArrayNewsCarousel = arrayNewsCarousel;
+      console.log(arrayNewsCarousel);
+
       const newsContainer = document.getElementById("news-container");
       const prevBtnNews = document.getElementById("prev-btn-news");
       const nextBtnNews = document.getElementById("next-btn-news");
@@ -492,168 +516,97 @@ function component() {
         }
         showArticles();
       }, 1000000);
-
-      // document.addEventListener("keydown", function (event) {
-      //   if (event.key === "0") {
-      //     currentPage = 3;
-      //     const selectedArticle = articles[currentArticleIndex];
-      //     const selectedTitle = selectedArticle.querySelector("img").title;
-      //     const selectedDescription =
-      //       arrayNewsCarousel[currentArticleIndex].description;
-      //     $("#newsTitle").html(selectedTitle);
-      //     $("#newsDesc").html(selectedDescription);
-
-      //     if ($("#newsInfo").is(":visible") && !$(".vdoPlr").is(":visible")) {
-      //       $("#newsInfo").hide();
-      //     } else if (
-      //       !$("#newsInfo").is(":visible") &&
-      //       !$(".vdoPlr").is(":visible")
-      //     ) {
-      //       $("#newsInfo").show();
-      //     }
-      //   } else if (event.keyCode === 38) {
-      //     currentArticleIndex++;
-      //     if (currentArticleIndex >= articles.length) {
-      //       currentArticleIndex = 0;
-      //     }
-      //     showArticles();
-      //   } else if (event.keyCode === 40) {
-      //     currentArticleIndex--;
-      //     if (currentArticleIndex < 0) {
-      //       currentArticleIndex = articles.length - 1;
-      //     }
-      //     showArticles();
-      //   }
-      // });
     })
     .catch(function (error) {
       console.log(error);
     });
-    
 
+  let currentRow = 0;
 
+  document
+    .getElementById("prev-btn-channel")
+    .addEventListener("click", showPrevious);
+  document
+    .getElementById("next-btn-channel")
+    .addEventListener("click", showNext);
 
+  mng
+    .loadChannelCarousel()
+    .then(function (arrayChannelCarousel) {
+      globalArrayChannelCarousel = arrayChannelCarousel;
+      console.log(arrayChannelCarousel);
 
+      generateTableRows(globalArrayChannelCarousel);
+    })
+    .catch(function (error) {
+      console.log("Error loading carousel:", error);
+    });
 
-    let currentRow = 0;
+  mng
+    .loadCarousel()
+    .then(function (arrayVideoCarousel) {
+      arrayVideo = arrayVideoCarousel;
 
-    
-    
-    
-    
-    
-    document.getElementById("prev-btn-channel").addEventListener("click", showPrevious);
-    document.getElementById("next-btn-channel").addEventListener("click", showNext);
-    
-   
-    mng.loadChannelCarousel()
-      .then(function (arrayChannelCarousel) {
-        globalArrayChannelCarousel = arrayChannelCarousel;
-        console.log(arrayChannelCarousel);
-        
-         generateTableRows(globalArrayChannelCarousel);
-      })
-      .catch(function (error) {
-        console.log("Error loading carousel:", error);
-      });
-    
+      const imageContainer = document.getElementById("image-container");
+      const prevBtn = document.getElementById("prev-btn");
+      const nextBtn = document.getElementById("next-btn");
 
+      slidesToShow = 4;
 
+      for (let i = 0; i < arrayVideo.length; i++) {
+        const slide = document.createElement("div");
+        slide.className = "slider";
 
+        const img = document.createElement("img");
+        img.src = arrayVideo[i].imgUrl;
+        img.title = arrayVideo[i].title;
+        slide.appendChild(img);
 
+        imageContainer.appendChild(slide);
+      }
 
+      slides = document.getElementsByClassName("slider");
+      if (slides.length > 0) {
+        slides[0].style.display = "block";
+      }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    mng.loadCarousel()
-      .then(function (arrayVideoCarousel) {
-        arrayVideo = arrayVideoCarousel;
-       
-
-    
-        const imageContainer = document.getElementById("image-container");
-        const prevBtn = document.getElementById("prev-btn");
-        const nextBtn = document.getElementById("next-btn");
-    
-        slidesToShow = 4;
-    
-        for (let i = 0; i < arrayVideo.length; i++) {
-          const slide = document.createElement("div");
-          slide.className = "slider";
-    
-          const img = document.createElement("img");
-          img.src = arrayVideo[i].imgUrl;
-          img.title = arrayVideo[i].title;
-          slide.appendChild(img);
-    
-          imageContainer.appendChild(slide);
+      prevBtn.addEventListener("click", function () {
+        currentIndex--;
+        selected--;
+        if (currentIndex < 0) {
+          currentIndex = slides.length - 1;
+          selected = slides.length - 1;
         }
-    
-        slides = document.getElementsByClassName("slider");
-        if (slides.length > 0) {
-          slides[0].style.display = "block";
-        }
-    
-        prevBtn.addEventListener("click", function () {
-          currentIndex--;
-          selected--;
-          if (currentIndex < 0) {
-            currentIndex = slides.length - 1;
-            selected = slides.length - 1;
-          }
-          
-          showSlides();
-        });
-    
-        nextBtn.addEventListener("click", function () {
-          currentIndex++;
-          selected++;
-          if (currentIndex >= slides.length) {
-            currentIndex = 0;
-            selected = 0;
-          }
-         
-    
-          showSlides();
-        });
-    
+
         showSlides();
-    
-        setInterval(function () {
-          currentIndex++;
-    
-          if (currentIndex >= slides.length) {
-            currentIndex = 0;
-          }
-    
-          showSlides();
-        }, 1000000);
-      })
-      .catch(function (error) {
-        console.log(error);
       });
-    
 
+      nextBtn.addEventListener("click", function () {
+        currentIndex++;
+        selected++;
+        if (currentIndex >= slides.length) {
+          currentIndex = 0;
+          selected = 0;
+        }
 
+        showSlides();
+      });
 
+      showSlides();
+
+      setInterval(function () {
+        currentIndex++;
+
+        if (currentIndex >= slides.length) {
+          currentIndex = 0;
+        }
+
+        showSlides();
+      }, 1000000);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
   mng
     .loadCarousel()
@@ -701,7 +654,6 @@ function component() {
           currentIndex = 0;
           selected = 0;
         }
-        
 
         showSlides();
       });
@@ -725,71 +677,13 @@ function component() {
   mng
     .loadJson()
     .then(function (LJ) {
-      $("#divBody").css({ "background-image": "url(" + LJ.URLImg + ")" });
+     
+        $("#divBody").css({ "background-image": "url(" + LJ.URLImg + ")" });
       id = LJ.id;
     })
     .catch(function (error) {
       console.log(error);
     });
-
-  //   $("#okdiv").click(function () {
-  //     $("#avgVote").show();
-  //     $("#avgVote").html(eng.getAverage(id, Vote).toFixed(2));
-  //   });
-
-  /* if enter hide all and show video + button controll */
-
-  // $(document).keydown(function (event) {
-  //   if (event.keyCode === 13) {
-  //     currentPage = 2;
-  //     if (!$(".vdoPlr").is(":visible")) {
-  //       $("#newsInfo").hide();
-  //       $("#info").hide();
-  //       $("#appManDiv").show();
-  //       $("#voteBox").hide();
-  //       $("#tvScreen").hide();
-  //       $(".slider-container").hide();
-  //       $("#divBody").hide();
-  //       $(".vdoPlr").show();
-  //       $("#videoControlls").show();
-  //       var url = arrayVideo[selected].videoUrl;
-  //       var player = MediaPlayer().create();
-  //       player.initialize(document.getElementById("vdoPlr"), url, true);
-  //       player.play();
-  //       $("#min10").show();
-  //       $("#playpauseBtn").show();
-  //       $("#plus10").show();
-  //       $("#newsInfo").hide();
-  //     } else if ($(".vdoPlr").is(":visible")) {
-  //       $("#divBody").show();
-  //       $("#newsInfo").show();
-  //       $("#info").show();
-  //       $("#appManDiv").hide();
-  //       $("#voteBox").show();
-  //       $("#tvScreen").show();
-  //       $(".slider-container").show();
-  //       $(".vdoPlr").hide();
-  //       $("#videoControlls").hide();
-  //       $("#min10").hide();
-  //       $("#playpauseBtn").hide();
-  //       $("#plus10").hide();
-  //       $("#newsInfo").hide();
-  //       $(".vdoPlr").hide();
-  //     }
-  //   } else if (event.keyCode === 32) {
-  //     if (video.paused) {
-  //       video.play();
-  //       $("#playpauseBtn").html("||");
-  //     } else {
-  //       video.pause();
-  //       $("#playpauseBtn").html(">");
-  //     }
-  //   } else if (event.keyCode === 39) {
-  //     video.currentTime = video.currentTime + 10;
-  //   } else if (event.keyCode === 37) {
-  //     video.currentTime = video.currentTime - 10;
-  //   }
-  // });
 
   $("#playpauseBtn").click(function () {
     if (video.paused) {
@@ -806,6 +700,24 @@ function component() {
   $("#plus10").click(function () {
     video.currentTime = video.currentTime + 10;
   });
+}
+
+function loadTV(){
+  registerKeyboardEvents(onKeyDownStart);
+  $("#info").hide();
+  $("#slider").hide();
+}
+
+function component() {
+  appMan = document.getElementById("appMan");
+  app = appMan.getOwnerApplication(document);
+  keyset = app.privateData.keyset;
+
+  registerKeyboardEvents(onKeyDownStart);
+
+  app.show();
+  loadTV();
+ 
 }
 
 document.body.appendChild(component());
