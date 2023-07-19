@@ -127,7 +127,7 @@ section {
 #next-btn {
   right: 10px;
 }
-img {
+#divBody  img {
   float: right;
   margin-right: 52px;
 }
@@ -337,5 +337,62 @@ th{
     top: 150px;
     right: 10px;
   }
-  
+  #imgSinistra {
+    transition: width 5s;
+    transition-timing-function: ease-in-out;
 
+
+    position: relative;
+    float: right;
+    top: -244px;
+    z-index: 3;
+    right: 754px;
+  }
+  #imgSfondo {
+    
+    position: relative;
+    float: right;
+    top: -306px;
+    right: 242px;
+    z-index: 2;
+  }
+  #testo1 {
+    
+    position: relative;
+    float: right;
+    top: -361px;
+    z-index: 12;
+    right: 274px;
+    font-size: small;;
+  }
+  #testo2 {
+    
+    position: relative;
+    float: right;
+    top: -349px;
+    z-index: 3;
+    right: -216px;
+  }
+  #mediaSet{
+    opacity: 0;
+    animation: fadeInOut 60s linear infinite; 
+  }
+  
+  
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0; 
+    }
+    3.33% {
+      opacity: 1; 
+    }
+    25% {
+      opacity: 1; 
+    }
+    28.33%, 32% {
+      opacity: 0; 
+    }
+   33%, 100% {
+      opacity: 0; 
+    }
+  }

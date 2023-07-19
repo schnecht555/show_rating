@@ -67,6 +67,31 @@ export class jsonmanager {
     return promise;
   }
 
+  loadMediaSetJson(){
+    let promise = new Promise(function (resolve, reject) {
+    
+      $.ajax({
+        url: "http://enabler.msf.cdn.mediaset.net/VCMS/CTAPush/cta_list.json",
+        dataType: "json",
+        success: function (data) {
+          
+          if (data) {
+            const imgSinistra = data["CTA_PUSH"][1].grafica.imgSinistra;
+            const imgSfondo = data["CTA_PUSH"][1].grafica.imgSfondo;
+            const riga1Testo = data["CTA_PUSH"][1].grafica["riga1.testo"];
+            const riga2Testo = data["CTA_PUSH"][1].grafica["riga2.testo"];
+            resolve({ imgSinistra: imgSinistra, imgSfondo: imgSfondo, riga1Testo: riga1Testo,  riga2Testo: riga2Testo});
+          } else {
+            console.log("som tin wuan");
+            reject(new Error("Something is not right!"));
+          }
+        },
+      });
+    });
+
+    return promise;
+  }
+  
   loadDownWardsCarousel() {
     let arrayNews = [];
 

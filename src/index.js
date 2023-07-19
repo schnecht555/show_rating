@@ -287,9 +287,10 @@ function onKeyDownMain(e) {
       $("#tvScreen").height("100%");
       $("#tvScreen").width("100%");
       $("#divBody").hide();
+      $("#mediaSet").show();
       unregisterKeyboardEvents(onKeyDownMain);
       registerKeyboardEvents(onKeyDownStart);
-
+      
       break;
 
     default:
@@ -433,22 +434,24 @@ function onKeyDownStart(e) {
     case KeyEvent.VK_UP:
     case e.VK_UP:
       console.log("up");
-        startPage = 0;
-        
-        $("#tvScreen").show();
-        $("#divBody").show();
-        $("#info").show();
-        $("#slider").show();
-        loadMainPage();
-        unregisterKeyboardEvents(onKeyDownStart);
-        registerKeyboardEvents(onKeyDownMain);
+      startPage = 0;
+
+      $("#tvScreen").show();
+      $("#divBody").show();
+      $("#info").show();
+      $("#slider").show();
       
+      $("#mediaSet").hide();
+      loadMainPage();
+      unregisterKeyboardEvents(onKeyDownStart);
+      registerKeyboardEvents(onKeyDownMain);
+
     default:
       return;
   }
 }
 
-function loadMainPage(){
+function loadMainPage() {
   registerKeyboardEvents(onKeyDownMain);
   let mng = new jsonmanager();
   var eng = new engine();
@@ -677,8 +680,7 @@ function loadMainPage(){
   mng
     .loadJson()
     .then(function (LJ) {
-     
-        $("#divBody").css({ "background-image": "url(" + LJ.URLImg + ")" });
+      $("#divBody").css({ "background-image": "url(" + LJ.URLImg + ")" });
       id = LJ.id;
     })
     .catch(function (error) {
@@ -702,10 +704,24 @@ function loadMainPage(){
   });
 }
 
-function loadTV(){
+function loadTV() {
   registerKeyboardEvents(onKeyDownStart);
   $("#info").hide();
   $("#slider").hide();
+  let mng = new jsonmanager();
+  mng
+    .loadMediaSetJson()
+    .then(function (LM) {
+      let mdstUrl = "http://enabler.msf.cdn.mediaset.net/";
+      
+      $("#imgSinistra").attr('src', mdstUrl + LM.imgSinistra);
+      $("#imgSfondo").attr('src', mdstUrl + LM.imgSfondo);
+      $("#testo1").html(LM.riga1Testo);
+      $("#testo2").html(LM.riga2Testo);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 function component() {
@@ -717,7 +733,6 @@ function component() {
 
   app.show();
   loadTV();
- 
 }
 
 document.body.appendChild(component());
