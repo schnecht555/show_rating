@@ -71,7 +71,7 @@ export class jsonmanager {
     let promise = new Promise(function (resolve, reject) {
     
       $.ajax({
-        url: "http://enabler.msf.cdn.mediaset.net/VCMS/CTAPush/cta_list.json",
+        url: "https://enabler.msf.cdn.mediaset.net/VCMS/CTAPush/cta_list.json",
         dataType: "json",
         success: function (data) {
           
@@ -122,7 +122,7 @@ export class jsonmanager {
 
    loadChannelCarousel() {
     return new Promise(function (resolve, reject) {
-      fetch("http://static3.mediasetplay.mediaset.it/apigw/nownext/nownext.json")
+      fetch("https://static3.mediasetplay.mediaset.it/apigw/nownext/nownext.json")
         .then(response => response.json())
         .then(data => {
           const listings = data.response.listings;
