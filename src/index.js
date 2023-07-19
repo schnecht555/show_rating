@@ -309,6 +309,7 @@ function onKeyDownVideo(e) {
     case KeyEvent.VK_BACK:
     case e.VK_BACK:
       currentPosVid = 1;
+      video.pause();
       $("#divBody").show();
       $("#newsInfo").show();
       $("#info").show();
@@ -327,6 +328,7 @@ function onKeyDownVideo(e) {
       registerKeyboardEvents(onKeyDownMain);
       currentPage = 1;
       currentPosVid = 1;
+     
 
       break;
     case KeyEvent.VK_ENTER:
