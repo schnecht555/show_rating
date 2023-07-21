@@ -756,7 +756,7 @@ function loadTV() {
   mng
     .loadMediaSetJson()
     .then(function (LM) {
-      let mdstUrl = "http://enabler.msf.cdn.mediaset.net/";
+      let mdstUrl = "https://enabler.msf.cdn.mediaset.net/";
       
       $("#imgSinistra").attr('src', mdstUrl + LM.imgSinistra);
       $("#imgSfondo").attr('src', mdstUrl + LM.imgSfondo);
