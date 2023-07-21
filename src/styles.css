@@ -1,20 +1,21 @@
 body {
   height: 720px;
-  width: 1024px;
+  width: 1280px;
   background-image: url();
-  background-size: 1024px 720px;
+  background-size: 1280px 720px;
 }
 #divBody {
   height: 720px;
-  width: 1024px;
+  width: 1280px;
   background-image: url();
-  background-size: 1024px 720px;
+  background-size: 1280px 720px;
 }
 #tvScreen {
   height: 100%;
   width: 100%;
   float: left;
   margin-top: -43px;
+  z-index: 100;
 }
 
 #info {
@@ -133,7 +134,7 @@ section {
 }
 #vdoPlr {
   height: 720px;
-  width: 1024px;
+  width: 1280px;
   display: none;
 }
 
@@ -201,11 +202,11 @@ section {
 }
 
 #prev-btn-news {
-  margin-left: 210px;
+  margin-left: 260px;
   margin-top: 15px;
 }
 #next-btn-news {
-  margin-left: 210px;
+  margin-left: 260px;
   margin-bottom: 15px;
 }
 #newsInfo {
@@ -280,6 +281,8 @@ section {
   background-color: gainsboro;
 }
 #epgBtn {
+  position: relative;
+  left: 50px;
   height: 20px;
   width: 40px;
   background-color: lightgrey;
@@ -344,36 +347,37 @@ th{
 
     position: relative;
     float: right;
-    top: -244px;
+    top: -170px;
     z-index: 3;
-    right: 754px;
+    right: 1010px;
   }
   #imgSfondo {
     
     position: relative;
     float: right;
-    top: -306px;
-    right: 242px;
+    top: -106px;
+    right: 228px;
     z-index: 2;
   }
   #testo1 {
     
     position: relative;
     float: right;
-    top: -361px;
+    top: -161px;
     z-index: 12;
-    right: 274px;
+    right: 250px;
     font-size: small;;
   }
   #testo2 {
     
     position: relative;
     float: right;
-    top: -349px;
+    top: -149px;
     z-index: 3;
-    right: -216px;
+    right: -228px;
   }
   #mediaSet{
+    
     opacity: 0;
     animation: fadeInOut 60s linear infinite; 
   }

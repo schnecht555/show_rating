@@ -554,7 +554,7 @@ function loadMainPage() {
       const prevBtn = document.getElementById("prev-btn");
       const nextBtn = document.getElementById("next-btn");
 
-      slidesToShow = 4;
+      slidesToShow = 5;
 
       for (let i = 0; i < arrayVideo.length; i++) {
         const slide = document.createElement("div");
@@ -621,7 +621,7 @@ function loadMainPage() {
       const prevBtn = document.getElementById("prev-btn");
       const nextBtn = document.getElementById("next-btn");
 
-      slidesToShow = 4;
+      slidesToShow = 5;
 
       for (let i = 0; i < arrayVideo.length; i++) {
         const slide = document.createElement("div");
