@@ -36,6 +36,7 @@ let app = null;
 let appMan = null;
 let currentRow = null;
 
+
 function resizeVideo(fullscreen, left) {
 
   var vid = document.getElementById("tvScreen");
@@ -769,10 +770,11 @@ function loadTV() {
 }
 
 function component() {
+
   appMan = document.getElementById("appMan");
   app = appMan.getOwnerApplication(document);
   keyset = app.privateData.keyset;
-
+//resizeVideo(fullscreen = false);
   registerKeyboardEvents(onKeyDownStart);
 
   app.show();
