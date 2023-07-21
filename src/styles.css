@@ -170,7 +170,7 @@ section {
   background-image: url();
   background-size: 210px 288px;
   background-repeat: no-repeat;
-  background-position-x: 94.75%;
+  background-position-x: 96%;
 }
 #news-container {
   display: flex;
@@ -275,7 +275,7 @@ section {
   height: 50%;
   width: 50%;
   top: 25%;
-  left: 15%;
+  left: 25%;
   display: none;
   z-index: 7;
   background-color: gainsboro;
