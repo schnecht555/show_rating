@@ -36,49 +36,37 @@ let app = null;
 let appMan = null;
 let currentRow = null;
 
-
 function resizeVideo(fullscreen, left) {
-
   var vid = document.getElementById("tvScreen");
 
+  vid.setFullScreen(fullscreen);
 
+  if (fullscreen) {
+    vid.style.left = "0px";
 
-    vid.setFullScreen(fullscreen);
+    vid.style.top = "0px";
 
-   
-    if (fullscreen) {
+    vid.style.width = "100%";
 
-      vid.style.left = "0px";
+    vid.style.height = "100%";
 
-      vid.style.top = "0px";
+    vid.style.float = "left";
+    vid.style.marginLeft = "-43px";
+    vid.style.zIndex = "100";
+  } else {
+    vid.style.left = left + "px";
 
-      vid.style.width = "100%";
+    vid.style.top = "0px";
 
-      vid.style.height = "100%";
+    vid.style.width = "60%";
 
-      vid.style.float = "left";
-      vid.style.marginLeft = "-43px";
-      vid.style.zIndex = "100";
+    vid.style.height = "60%";
 
-    } else {
-
-      vid.style.left = left + "px";
-
-      vid.style.top = "0px";
-
-      vid.style.width = "60%";
-
-      vid.style.height = "60%";
-
-      vid.style.position = "absolute";
-      vid.style.float = "left";
-      vid.style.marginLeft = "-43px";
-      vid.style.zIndex = "100";
-
-    }
-
-
-
+    vid.style.position = "absolute";
+    vid.style.float = "left";
+    vid.style.marginLeft = "-43px";
+    vid.style.zIndex = "100";
+  }
 }
 
 function generateTableRows(data) {
@@ -335,7 +323,7 @@ function onKeyDownMain(e) {
       $("#mediaSet").show();
       unregisterKeyboardEvents(onKeyDownMain);
       registerKeyboardEvents(onKeyDownStart);
-      
+
       break;
 
     default:
@@ -485,7 +473,7 @@ function onKeyDownStart(e) {
       $("#divBody").show();
       $("#info").show();
       $("#slider").show();
-      
+
       $("#mediaSet").hide();
       loadMainPage();
       unregisterKeyboardEvents(onKeyDownStart);
@@ -758,9 +746,9 @@ function loadTV() {
     .loadMediaSetJson()
     .then(function (LM) {
       let mdstUrl = "https://enabler.msf.cdn.mediaset.net/";
-      
-      $("#imgSinistra").attr('src', mdstUrl + LM.imgSinistra);
-      $("#imgSfondo").attr('src', mdstUrl + LM.imgSfondo);
+
+      $("#imgSinistra").attr("src", mdstUrl + LM.imgSinistra);
+      $("#imgSfondo").attr("src", mdstUrl + LM.imgSfondo);
       $("#testo1").html(LM.riga1Testo);
       $("#testo2").html(LM.riga2Testo);
     })
@@ -770,14 +758,20 @@ function loadTV() {
 }
 
 function component() {
-
   appMan = document.getElementById("appMan");
   app = appMan.getOwnerApplication(document);
   keyset = app.privateData.keyset;
-//resizeVideo(fullscreen = false);
+
   registerKeyboardEvents(onKeyDownStart);
 
   app.show();
+  try {
+    var vid = document.getElementById("tvScreen");
+    vid.setFullScreen(false);
+  } catch (error) {
+    console.log("video not found");
+  }
+
   loadTV();
 }
 
