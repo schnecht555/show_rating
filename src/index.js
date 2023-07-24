@@ -58,9 +58,9 @@ function resizeVideo(fullscreen, left) {
 
     vid.style.top = "0px";
 
-    vid.style.width = "60%";
+    vid.style.width = "50%";
 
-    vid.style.height = "60%";
+    vid.style.height = "50%";
 
     vid.style.position = "absolute";
     vid.style.float = "left";
@@ -501,8 +501,8 @@ function loadMainPage() {
   } catch (error) {
     console.log("video not found");
   }
-  $("#tvScreen").height("60%");
-  $("#tvScreen").width("60%");
+  $("#tvScreen").height("50%");
+  $("#tvScreen").width("50%");
   mng
     .loadDownWardsCarousel()
     .then(function (arrayNewsCarousel) {

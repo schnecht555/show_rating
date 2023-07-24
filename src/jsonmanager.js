@@ -3,7 +3,7 @@ export class jsonmanager {
     let promise = new Promise(function (resolve, reject) {
       const urlParams = new URLSearchParams(window.location.search);
       let id = urlParams.get("ID");
-      if (!id) {
+      if (!id || id != 111 || id != 222) {
         id = "111";
         urlParams.set("ID", id);
         const newUrl = window.location.pathname + "?" + urlParams.toString();
