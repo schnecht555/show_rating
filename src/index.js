@@ -102,9 +102,9 @@ function showPrevious() {
     generateTableRows(globalArrayChannelCarousel);
   }
 }
-
+//globalArrayChannelCarousel.length = 25
 function showNext() {
-  if ((currentRow + 1) * 4 < globalArrayChannelCarousel.length) {
+  if ((currentRow + 1) * 4 < 25) {
     currentRow++;
     generateTableRows(globalArrayChannelCarousel);
   }
