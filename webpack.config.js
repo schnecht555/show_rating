@@ -28,10 +28,10 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
-        test: /\.js$/, // Apply the loader to JavaScript files
+        test: /\.js$/, 
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader', // Use Babel loader to transpile JavaScript code
+          loader: 'babel-loader', 
           options: {
             presets: ['@babel/preset-env'],
           },
