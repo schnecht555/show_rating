@@ -9,6 +9,7 @@ body {
   width: 1280px;
   background-image: url();
   background-size: 1280px 720px;
+  z-index: 0;
 }
 #tvScreen {
   height: 100%;
@@ -27,7 +28,7 @@ body {
   background-image: url();
   background-size: 169px 111px;
   background-repeat: no-repeat;
-  background-position-x: 60%;
+  background-position-x: 57%;
   background-position-y: 100%;
   margin-top: -10px;
 }

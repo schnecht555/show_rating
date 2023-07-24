@@ -151,6 +151,9 @@ $("#prev-btn").css({ "background-color": "yellow" });
 
 //currentpage=1
 function onKeyDownMain(e) {
+  $("#divBody").css({
+    "background-image": "url(" + arrayVideo[selected].bkgURL + ")",
+  });
   switch (e.keyCode) {
     case KeyEvent.VK_RIGHT:
     case e.VK_RIGHT:
@@ -246,6 +249,9 @@ function onKeyDownMain(e) {
           currentIndex = slides.length - 1;
           selected = slides.length - 1;
         }
+        $("#divBody").css({
+          "background-image": "url(" + arrayVideo[selected].bkgURL + ")",
+        });
         console.log(selected);
         showSlides();
       } else if (currentPos == 2) {
@@ -278,6 +284,9 @@ function onKeyDownMain(e) {
           currentIndex = 0;
           selected = 0;
         }
+        $("#divBody").css({
+          "background-image": "url(" + arrayVideo[selected].bkgURL + ")",
+        });
 
         showSlides();
       } else if (currentPos == 4) {
@@ -588,72 +597,6 @@ function loadMainPage() {
     .loadCarousel()
     .then(function (arrayVideoCarousel) {
       arrayVideo = arrayVideoCarousel;
-
-      const imageContainer = document.getElementById("image-container");
-      const prevBtn = document.getElementById("prev-btn");
-      const nextBtn = document.getElementById("next-btn");
-
-      slidesToShow = 5;
-
-      for (let i = 0; i < arrayVideo.length; i++) {
-        const slide = document.createElement("div");
-        slide.className = "slider";
-
-        const img = document.createElement("img");
-        img.src = arrayVideo[i].imgUrl;
-        img.title = arrayVideo[i].title;
-        slide.appendChild(img);
-
-        imageContainer.appendChild(slide);
-      }
-
-      slides = document.getElementsByClassName("slider");
-      if (slides.length > 0) {
-        slides[0].style.display = "block";
-      }
-
-      prevBtn.addEventListener("click", function () {
-        currentIndex--;
-        selected--;
-        if (currentIndex < 0) {
-          currentIndex = slides.length - 1;
-          selected = slides.length - 1;
-        }
-
-        showSlides();
-      });
-
-      nextBtn.addEventListener("click", function () {
-        currentIndex++;
-        selected++;
-        if (currentIndex >= slides.length) {
-          currentIndex = 0;
-          selected = 0;
-        }
-
-        showSlides();
-      });
-
-      showSlides();
-
-      setInterval(function () {
-        currentIndex++;
-
-        if (currentIndex >= slides.length) {
-          currentIndex = 0;
-        }
-
-        showSlides();
-      }, 1000000);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-  mng
-    .loadCarousel()
-    .then(function (arrayVideoCarousel) {
-      arrayVideo = arrayVideoCarousel;
       console.log(arrayVideo);
 
       const imageContainer = document.getElementById("image-container");
@@ -682,6 +625,7 @@ function loadMainPage() {
       prevBtn.addEventListener("click", function () {
         currentIndex--;
         selected--;
+        console.log(selected);
         if (currentIndex < 0) {
           currentIndex = slides.length - 1;
           selected = slides.length - 1;
@@ -692,6 +636,7 @@ function loadMainPage() {
       nextBtn.addEventListener("click", function () {
         currentIndex++;
         selected++;
+        console.log(selected);
         if (currentIndex >= slides.length) {
           currentIndex = 0;
           selected = 0;
@@ -711,16 +656,6 @@ function loadMainPage() {
 
         showSlides();
       }, 1000000);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-  mng
-    .loadJson()
-    .then(function (LJ) {
-      $("#divBody").css({ "background-image": "url(" + LJ.URLImg + ")" });
-      id = LJ.id;
     })
     .catch(function (error) {
       console.log(error);
@@ -776,7 +711,7 @@ function component() {
     vid.bindToCurrentChannel();
     vid.setFullScreen(true);
     vid.onChannelChangeSucceeded = function () {
-      console.log("Channel changed")
+      console.log("Channel changed");
     };
   } catch (error) {
     console.log("video not found");
