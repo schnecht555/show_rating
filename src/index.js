@@ -495,6 +495,12 @@ function loadMainPage() {
   let arrayNews = null;
   let select = 0;
   video = document.getElementById("vdoPlr");
+  try {
+    var vid = document.getElementById("tvScreen");
+    vid.setFullScreen(false);
+  } catch (error) {
+    console.log("video not found");
+  }
   $("#tvScreen").height("60%");
   $("#tvScreen").width("60%");
   mng
@@ -767,7 +773,7 @@ function component() {
   app.show();
   try {
     var vid = document.getElementById("tvScreen");
-    vid.setFullScreen(false);
+    vid.setFullScreen(true);
   } catch (error) {
     console.log("video not found");
   }
