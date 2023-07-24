@@ -773,7 +773,11 @@ function component() {
   app.show();
   try {
     var vid = document.getElementById("tvScreen");
+    vid.bindToCurrentChannel();
     vid.setFullScreen(true);
+    vid.onChannelChangeSucceeded = function () {
+      console.log("Channel changed")
+    };
   } catch (error) {
     console.log("video not found");
   }
