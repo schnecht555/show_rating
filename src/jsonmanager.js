@@ -92,7 +92,37 @@ export class jsonmanager {
     return promise;
   }
 
+
+  padStart(str, targetLength, padString) {
+    // Convert the input string to a string, if it's not already one
+    str = String(str);
+  
+    // If the targetLength is not defined, or the string is already longer, return the original string
+    if (targetLength <= str.length) {
+      return str;
+    }
+  
+    // If padString is not defined, or it's an empty string, use a single space as the default padding character
+    if (padString === undefined || padString === "") {
+      padString = " ";
+    }
+  
+    // Calculate the number of characters needed for padding
+    const padLength = targetLength - str.length;
+  
+    // Repeat the padString as many times as needed to reach the targetLength
+    let padding = "";
+    while (padding.length < padLength) {
+      padding += padString;
+    }
+  
+    // Trim the padding to the required length and return the result
+    return padding.slice(0, padLength) + str;
+  }
+  
+  
    loadChannelCarousel() {
+    
     return new Promise(function (resolve, reject) {
       fetch("https://static3.mediasetplay.mediaset.it/apigw/nownext/nownext.json")
         .then(response => response.json())
@@ -129,8 +159,8 @@ export class jsonmanager {
             // Function to format the timestamp into hh:mm format
             function formatTime(timestamp) {
               const date = new Date(timestamp);
-              const hours = date.getHours().toString();
-              const minutes = date.getMinutes().toString();
+              const hours = date.getHours().toString().padStart(2, "0");
+              const minutes = date.getMinutes().toString().padStart(2, "0");
               return `${hours}:${minutes}`;
             }
   
