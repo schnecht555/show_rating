@@ -129,8 +129,8 @@ export class jsonmanager {
             // Function to format the timestamp into hh:mm format
             function formatTime(timestamp) {
               const date = new Date(timestamp);
-              const hours = date.getHours().toString().padStart(2, "0");
-              const minutes = date.getMinutes().toString().padStart(2, "0");
+              const hours = date.getHours().toString();
+              const minutes = date.getMinutes().toString();
               return `${hours}:${minutes}`;
             }
   
