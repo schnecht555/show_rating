@@ -191,7 +191,7 @@ export class jsonmanager {
               const minutes = padStart(date.getMinutes().toString(), 2, "0");
               return `${hours}:${minutes}`;
             }
-  
+  //help
             const formattedCurrentStartTime = currentStartTime ? formatTime(currentStartTime) : "";
             const formattedCurrentEndTime = currentEndTime ? formatTime(currentEndTime) : "";
             const formattedNextStartTime = nextStartTime ? formatTime(nextStartTime) : "";
