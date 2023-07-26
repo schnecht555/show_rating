@@ -5,7 +5,7 @@ export class jsonmanager {
     var array = JSON.parse(jsonString);
     return array;
   }
-
+//help
   setArray(arrayInput) {
     var jsonString = JSON.stringify(arrayInput);
     localStorage.setItem("rating", jsonString);
