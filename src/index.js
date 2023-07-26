@@ -721,4 +721,34 @@ function component() {
   loadTV();
 }
 
+Number.prototype.padStart2= function (targetLength, padString) {
+  // Convert the input string to a string, if it's not already one
+  let str = String(this);
+
+  // If the targetLength is not defined, or the string is already longer, return the original string
+  if (targetLength <= str.length) {
+    return str;
+  }
+
+  // If padString is not defined, or it's an empty string, use a single space as the default padding character
+  if (padString === undefined || padString === "") {
+    padString = " ";
+  }
+
+  // Calculate the number of characters needed for padding
+  const padLength = targetLength - str.length;
+
+  // Repeat the padString as many times as needed to reach the targetLength
+  let padding = "";
+  while (padding.length < padLength) {
+    padding += padString;
+  }
+
+  // Trim the padding to the required length and return the result
+  return padding.slice(0, padLength) + str;
+}
+
+
 document.body.appendChild(component());
+
+
