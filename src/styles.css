@@ -141,7 +141,7 @@ section {
 
 .vdoPlr {
   position: relative;
-  top: -80px;
+  top: 0px;
 }
 video::-webkit-media-controls-timeline,
 video::-webkit-media-controls-seek-forward-button,

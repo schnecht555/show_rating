@@ -275,7 +275,7 @@ function onKeyDownMain(e) {
         $("#vdoPlr").html(
           '<source src=" ' + addUrl + '" type="video/mp4"></source>'
         );
-
+//
         video.play();
         video.addEventListener("ended", function () {
           var url = arrayVideo[selected].videoUrl;
