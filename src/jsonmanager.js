@@ -189,6 +189,29 @@ export class jsonmanager {
     });
   }
   
+  loadAdUrl(){
+    let promise = new Promise(function (resolve, reject) {
+    
+      $.ajax({
+        url: "https://7cf6e.v.fwmrm.net/ad/g/1?nw=511854&prof=511854:mediaset_smarttv_mp4_sd_only_live&caid=F312724001000501&mode=on-demand&csid=mediasetplay_video_iptv_lge_hbbtvtivuon_player&afid=249031355&sfid=16832056&resp=json&flag=+sltp+play+slcb+vicb+qtcb;brnd=lge&plt=hbbtvtivuon&_fw_vcid2=&_fw_extra_lookup_id=&userid_ref=&speed=31934&MDS_Fcode=F312724001000501&adld=1&uid=undefined;",
+        dataType: "json",
+        success: function (data) {
+          
+          if (data) {
+            const adUrl = data.ads.ads[0].creatives[0].creativeRenditions[0].asset.url;
+                        resolve({ adUrl: adUrl});
+          } else {
+            console.log("som tin wuan");
+            reject(new Error("Something is not right!"));
+          }
+        },
+      });
+    });
+
+    return promise;
+  }
+
+
   
   
   

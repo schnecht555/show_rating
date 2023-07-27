@@ -35,6 +35,7 @@ let video = null;
 let app = null;
 let appMan = null;
 let currentRow = null;
+let addUrl = "";
 
 function resizeVideo(fullscreen, left) {
   var vid = document.getElementById("tvScreen");
@@ -264,13 +265,24 @@ function onKeyDownMain(e) {
         $("#divBody").hide();
         $(".vdoPlr").show();
         $("#videoControlls").show();
-        var url = arrayVideo[selected].videoUrl;
-        var player = MediaPlayer().create();
-        player.initialize(document.getElementById("vdoPlr"), url, true);
-        player.play();
-        $("#min10").show();
+        $("#min10").hide();
+        $("#playpauseBtn").hide();
+        $("#plus10").hide();
+        $("#vdoPlr").html(
+          '<source src=" ' + addUrl + '" type="video/mp4"></source>'
+        );
+
+        video.play();
+        video.addEventListener("ended", function () {
+          var url = arrayVideo[selected].videoUrl;
+          var player = MediaPlayer().create();
+          player.initialize(document.getElementById("vdoPlr"), url, true);
+          player.play();
+          $("#min10").show();
         $("#playpauseBtn").show();
         $("#plus10").show();
+        });
+        
         $("#newsInfo").hide();
         currentPage = 2;
         unregisterKeyboardEvents(onKeyDownMain);
@@ -370,7 +382,6 @@ function onKeyDownVideo(e) {
       break;
     case KeyEvent.VK_BACK:
     case e.VK_BACK:
-      currentPosVid = 1;
       video.pause();
       $("#divBody").show();
       $("#newsInfo").show();
@@ -386,6 +397,8 @@ function onKeyDownVideo(e) {
       $("#plus10").hide();
       $("#newsInfo").hide();
       $(".vdoPlr").hide();
+      $("#playpauseBtn").css({ "background-color": "lightgrey" });
+      $("#plus10").css({ "background-color": "lightgrey" });
       unregisterKeyboardEvents(onKeyDownVideo);
       registerKeyboardEvents(onKeyDownMain);
       currentPage = 1;
@@ -512,6 +525,16 @@ function loadMainPage() {
   }
   $("#tvScreen").height("60%");
   $("#tvScreen").width("60%");
+
+  mng
+    .loadAdUrl()
+    .then(function (LA) {
+      addUrl = LA.adUrl;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
   mng
     .loadDownWardsCarousel()
     .then(function (arrayNewsCarousel) {
@@ -721,34 +744,24 @@ function component() {
   loadTV();
 }
 
-Number.prototype.padStart2= function (targetLength, padString) {
-  // Convert the input string to a string, if it's not already one
+Number.prototype.padStart2 = function (targetLength, padString) {
   let str = String(this);
 
-  // If the targetLength is not defined, or the string is already longer, return the original string
   if (targetLength <= str.length) {
     return str;
   }
 
-  // If padString is not defined, or it's an empty string, use a single space as the default padding character
   if (padString === undefined || padString === "") {
     padString = " ";
   }
-
-  // Calculate the number of characters needed for padding
   const padLength = targetLength - str.length;
 
-  // Repeat the padString as many times as needed to reach the targetLength
   let padding = "";
   while (padding.length < padLength) {
     padding += padString;
   }
 
-  // Trim the padding to the required length and return the result
   return padding.slice(0, padLength) + str;
-}
-
+};
 
 document.body.appendChild(component());
-
-
