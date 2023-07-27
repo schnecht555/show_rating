@@ -36,6 +36,7 @@ let app = null;
 let appMan = null;
 let currentRow = null;
 let addUrl = "";
+let player = null;
 
 function resizeVideo(fullscreen, left) {
   var vid = document.getElementById("tvScreen");
@@ -268,6 +269,9 @@ function onKeyDownMain(e) {
         $("#min10").hide();
         $("#playpauseBtn").hide();
         $("#plus10").hide();
+        if (player != null){
+          player.reset();
+        }
         $("#vdoPlr").html(
           '<source src=" ' + addUrl + '" type="video/mp4"></source>'
         );
@@ -275,7 +279,7 @@ function onKeyDownMain(e) {
         video.play();
         video.addEventListener("ended", function () {
           var url = arrayVideo[selected].videoUrl;
-          var player = MediaPlayer().create();
+          player = MediaPlayer().create();
           player.initialize(document.getElementById("vdoPlr"), url, true);
           player.play();
           $("#min10").show();
