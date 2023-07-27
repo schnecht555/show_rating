@@ -38,38 +38,7 @@ let currentRow = null;
 let addUrl = "";
 let player = null;
 
-function resizeVideo(fullscreen, left) {
-  var vid = document.getElementById("tvScreen");
 
-  vid.setFullScreen(fullscreen);
-
-  if (fullscreen) {
-    vid.style.left = "0px";
-
-    vid.style.top = "0px";
-
-    vid.style.width = "100%";
-
-    vid.style.height = "100%";
-
-    vid.style.float = "left";
-    vid.style.marginLeft = "-43px";
-    vid.style.zIndex = "100";
-  } else {
-    vid.style.left = left + "px";
-
-    vid.style.top = "0px";
-
-    vid.style.width = "60%";
-
-    vid.style.height = "60%";
-
-    vid.style.position = "absolute";
-    vid.style.float = "left";
-    vid.style.marginLeft = "-43px";
-    vid.style.zIndex = "100";
-  }
-}
 
 function generateTableRows(data) {
   const tableBody = document.querySelector("#data-table tbody");
