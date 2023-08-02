@@ -1,0 +1,1 @@
+https://vd2gposa1l.execute-api.eu-west-2.amazonaws.com/test/dvbi/query?TargetCountry=ITA&Delivery[]=dvb-t
